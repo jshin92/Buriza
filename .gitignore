@@ -1,0 +1,4 @@
+Buriza/*.vcxproj.user
+Buriza/Debug/*
+*.vs/
+Debug/*
