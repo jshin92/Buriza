@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)Buriza\3rdParty\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Buriza\3rdParty\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -78,6 +81,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -115,6 +119,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="3rdParty\lib\glfw3.lib" />
+    <Library Include="3rdParty\lib\libglew32d.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3rdParty\include\GLFW\glfw3.h" />
+    <ClInclude Include="3rdParty\include\GLFW\glfw3native.h" />
+    <ClInclude Include="3rdParty\include\GL\eglew.h" />
+    <ClInclude Include="3rdParty\include\GL\glew.h" />
+    <ClInclude Include="3rdParty\include\GL\glxew.h" />
+    <ClInclude Include="3rdParty\include\GL\wglew.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
