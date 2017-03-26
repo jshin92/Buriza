@@ -91,14 +91,24 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    int texWidth, texHeight;
-    unsigned char* image = SOIL_load_image("assets/container.jpg", &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    int texWidth1, texHeight1;
+    unsigned char* image1 = SOIL_load_image("assets/container.jpg", &texWidth1, &texHeight1, 0, SOIL_LOAD_RGB);
+    GLuint texture1;
+    glGenTextures(1, &texture1);
+    glBindTexture(GL_TEXTURE_2D, texture1);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth1, texHeight1, 0, GL_RGB, GL_UNSIGNED_BYTE, image1);
     glGenerateMipmap(GL_TEXTURE_2D);
-    SOIL_free_image_data(image);
+    SOIL_free_image_data(image1);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    int texWidth2, texHeight2;
+    unsigned char* image2 = SOIL_load_image("assets/awesomeface.png", &texWidth2, &texHeight2, 0, SOIL_LOAD_RGB);
+    GLuint texture2;
+    glGenTextures(1, &texture2);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth2, texHeight2, 0, GL_RGB, GL_UNSIGNED_BYTE, image2);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    SOIL_free_image_data(image2);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     Shader ourShader("src/shaders/shader.vs", "src/shaders/shader.fs");
@@ -112,7 +122,15 @@ int main()
 
         ourShader.Use();
 
-        glBindTexture(GL_TEXTURE_2D, texture);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture1);
+        glUniform1i(glGetUniformLocation(ourShader.getProgram(), "ourTexture1"), 0);
+
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, texture2);
+        glUniform1i(glGetUniformLocation(ourShader.getProgram(), "ourTexture2"), 1);
+
+
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
         glBindVertexArray(0);
