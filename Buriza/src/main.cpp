@@ -43,6 +43,8 @@ int main()
         return -1;
     }
 
+    glEnable(GL_DEPTH_TEST);
+
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
@@ -51,17 +53,70 @@ int main()
 
     GLfloat vertices[]
     {
-        // Positions           // Colors            // Texture Coords
-         0.5f,  0.5f, 0.0f,    1.0f, 0.0f, 0.0f,    1.0f, 1.0f,      // Top Right
-         0.5f, -0.5f, 0.0f,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f,      // Bottom Right
-        -0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f,      // Bottom Left
-        -0.5f,  0.5f, 0.0f,    1.0f, 1.0f, 0.0f,    0.0f, 1.0f       // Top Left
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
 
     GLushort indices[]
     {
-        0, 1, 3,
-        1, 2, 3
+        0, 1, 2, 3, 4, 5, 6,
+        7, 8, 9, 10, 11, 12,
+        13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24,
+        25, 26, 27, 28, 29, 30, 
+        31, 32, 33, 34, 35, 36
+    };
+
+    glm::vec3 cubePositions[] = {
+        glm::vec3(0.0f,  0.0f,  0.0f),
+        glm::vec3(2.0f,  5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3(2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f,  3.0f, -7.5f),
+        glm::vec3(1.3f, -2.0f, -2.5f),
+        glm::vec3(1.5f,  2.0f, -2.5f),
+        glm::vec3(1.5f,  0.2f, -1.5f),
+        glm::vec3(-1.3f,  1.0f, -1.5f)
     };
 
     GLuint VAO;
@@ -78,14 +133,11 @@ int main()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), nullptr);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), nullptr);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
-
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(2);
 
     glBindVertexArray(0);
 
@@ -116,12 +168,18 @@ int main()
 
     Shader ourShader("src/shaders/shader.vs", "src/shaders/shader.fs");
 
+    glm::mat4 model{};
+    glm::mat4 view{};
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+
+
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ourShader.Use();
 
@@ -133,16 +191,25 @@ int main()
         glBindTexture(GL_TEXTURE_2D, texture2);
         glUniform1i(glGetUniformLocation(ourShader.getProgram(), "ourTexture2"), 1);
 
-        glm::mat4 trans;
-        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
-        trans = glm::rotate(trans, glm::radians((GLfloat)glfwGetTime() * 50.0f), glm::vec3(0.0, 0.0, 1.0));
-
-        GLuint transformLoc = glGetUniformLocation(ourShader.getProgram(), "transform");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+        GLuint modelLoc = glGetUniformLocation(ourShader.getProgram(), "model");
+        GLuint viewLoc = glGetUniformLocation(ourShader.getProgram(), "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        GLuint projectionLoc = glGetUniformLocation(ourShader.getProgram(), "projection");
+        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
+
+        for (GLuint i = 0; i < 10; ++i)
+        {
+            model = {};
+            model = glm::translate(model, cubePositions[i]);
+            GLfloat angle = glm::radians(20.0f * i);
+            model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
+        }
+
         glBindVertexArray(0);
 
         glfwSwapBuffers(window);
