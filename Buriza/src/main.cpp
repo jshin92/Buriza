@@ -169,10 +169,14 @@ int main()
     Shader ourShader("src/shaders/shader.vs", "src/shaders/shader.fs");
 
     glm::mat4 model{};
-    glm::mat4 view{};
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
 
+    glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+    glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 cameraDirection = glm::normalize(cameraPos - cameraTarget);
+    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+    glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -190,6 +194,11 @@ int main()
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
         glUniform1i(glGetUniformLocation(ourShader.getProgram(), "ourTexture2"), 1);
+
+        GLfloat radius = 10.0f;
+        GLfloat camX = (GLfloat)sin(glfwGetTime()) * radius;
+        GLfloat camZ = (GLfloat)cos(glfwGetTime()) * radius;
+        glm::mat4 view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 
         GLuint modelLoc = glGetUniformLocation(ourShader.getProgram(), "model");
         GLuint viewLoc = glGetUniformLocation(ourShader.getProgram(), "view");
