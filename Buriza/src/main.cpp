@@ -15,9 +15,12 @@ bool keys[1024];
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
+GLfloat yaw = -90.0f;
+GLfloat pitch = 0.0f;
 GLfloat deltaTime = 0.0f; // Time between current frame and last frame
 GLfloat lastFrame = 0.0f; // Time of the last frame
+GLfloat lastX = 400, lastY = 300;
+bool firstMouse = true;
 
 void handle_movement()
 {
@@ -43,6 +46,37 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         keys[key] = true;
     else if (action == GLFW_RELEASE)
         keys[key] = false;
+}
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+    if (firstMouse)
+    {
+        lastX = xpos;
+        lastY = ypos;
+        firstMouse = false;
+    }
+
+    GLfloat xoffset = xpos - lastX;
+    GLfloat yoffset = lastY - ypos; // reversed since ycoords range from bottom to top
+    lastX = xpos;
+    lastY = ypos;
+
+    GLfloat sensitivity = 0.05f;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    yaw += xoffset;
+    pitch += yoffset;
+
+    if (pitch > 89.0f) pitch = 89.0f;
+    if (pitch < -89.0) pitch = -89.0f;
+
+    glm::vec3 front{};
+    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    front.y = sin(glm::radians(pitch));
+    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    cameraFront = glm::normalize(front);
 }
 
 int main()
@@ -76,7 +110,9 @@ int main()
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
 
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetKeyCallback(window, key_callback);
+    glfwSetCursorPosCallback(window, mouse_callback);
 
     GLfloat vertices[]
     {
