@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -132,6 +133,7 @@
     <ClInclude Include="3rdParty\include\GL\glew.h" />
     <ClInclude Include="3rdParty\include\GL\glxew.h" />
     <ClInclude Include="3rdParty\include\GL\wglew.h" />
+    <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
+#define GLEW_STATIC
+
 #include <iostream>
 
-#define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <GLM/glm.hpp>
@@ -8,9 +9,9 @@
 #include <GLM/gtc/type_ptr.hpp>
 #include <SOIL/SOIL.h>
 
+#include "Input.h"
 #include "Shader.h"
 
-bool keys[1024];
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -25,6 +26,7 @@ GLfloat fov = 45.0f;
 
 void handle_movement()
 {
+    const auto keys = Input::GetKeyState();
     GLfloat cameraSpeed = 5.0f * (GLfloat)deltaTime;
     if (keys[GLFW_KEY_W])
         cameraPos += cameraSpeed * cameraFront;
@@ -34,19 +36,6 @@ void handle_movement()
         cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     if (keys[GLFW_KEY_D])
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-}
-
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    {
-        glfwSetWindowShouldClose(window, GL_TRUE);
-    }
-
-    if (action == GLFW_PRESS)
-        keys[key] = true;
-    else if (action == GLFW_RELEASE)
-        keys[key] = false;
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
@@ -122,9 +111,10 @@ int main()
     glViewport(0, 0, width, height);
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-    glfwSetKeyCallback(window, key_callback);
+    glfwSetKeyCallback(window, Input::KeyCallback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
+
 
     GLfloat vertices[]
     {
