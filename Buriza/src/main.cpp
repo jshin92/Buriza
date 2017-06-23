@@ -11,11 +11,9 @@
 
 #include "Input.h"
 #include "Shader.h"
+#include "Camera.h"
 
-
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 GLfloat yaw = -90.0f;
 GLfloat pitch = 0.0f;
 double deltaTime = 0.0; // Time between current frame and last frame
@@ -28,6 +26,9 @@ void handle_movement()
 {
     const auto keys = Input::GetKeyState();
     GLfloat cameraSpeed = 5.0f * (GLfloat)deltaTime;
+    auto& cameraPos = camera.GetCameraPos();
+    auto& cameraFront = camera.GetCameraFront();
+    auto& cameraUp = camera.GetCameraUp();
     if (keys[GLFW_KEY_W])
         cameraPos += cameraSpeed * cameraFront;
     if (keys[GLFW_KEY_S])
@@ -76,7 +77,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     front.y = sin(glm::radians(pitch));
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(front);
+    camera.SetCameraFront(glm::normalize(front));
 }
 
 int main()
@@ -259,8 +260,7 @@ int main()
         GLfloat radius = 10.0f;
         GLfloat camX = (GLfloat)sin(glfwGetTime()) * radius;
         GLfloat camZ = (GLfloat)cos(glfwGetTime()) * radius;
-        //glm::mat4 view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-        glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        glm::mat4 view = camera.GetViewMatrix();
 
         GLuint modelLoc = glGetUniformLocation(ourShader.getProgram(), "model");
         GLuint viewLoc = glGetUniformLocation(ourShader.getProgram(), "view");
