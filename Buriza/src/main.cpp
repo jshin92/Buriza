@@ -13,31 +13,22 @@
 #include "Shader.h"
 #include "Camera.h"
 
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void ProcessInput(GLFWwindow* window);
+
+constexpr int SCREEN_WIDTH = 800;
+constexpr int SCREEN_HEIGHT = 600;
+
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 GLfloat yaw = -90.0f;
 GLfloat pitch = 0.0f;
 double deltaTime = 0.0; // Time between current frame and last frame
 double lastFrame = 0.0; // Time of the last frame
-double lastX = 400, lastY = 300;
 bool firstMouse = true;
-GLfloat fov = 45.0f;
 
-void handle_movement()
-{
-    const auto keys = Input::GetKeyState();
-    GLfloat cameraSpeed = 5.0f * (GLfloat)deltaTime;
-    auto& cameraPos = camera.GetCameraPos();
-    auto& cameraFront = camera.GetCameraFront();
-    auto& cameraUp = camera.GetCameraUp();
-    if (keys[GLFW_KEY_W])
-        cameraPos += cameraSpeed * cameraFront;
-    if (keys[GLFW_KEY_S])
-        cameraPos -= cameraSpeed * cameraFront;
-    if (keys[GLFW_KEY_A])
-        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-    if (keys[GLFW_KEY_D])
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-}
+double lastX = 400, lastY = 300;
+GLfloat fov = 45.0f;
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
@@ -47,6 +38,21 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
         fov = 1.0f;
     if (fov >= 45.0f)
         fov = 45.0f;
+}
+
+void ProcessInput(GLFWwindow* window)
+{
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        camera.ProcessKeyboard(CameraMovement::FORWARD, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        camera.ProcessKeyboard(CameraMovement::BACKWARD, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        camera.ProcessKeyboard(CameraMovement::LEFT, deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        camera.ProcessKeyboard(CameraMovement::RIGHT, deltaTime);
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -89,7 +95,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Buriza", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Buriza", nullptr, nullptr);
     if (!window)
     {
         std::cerr << "Failed to create GLFW Window" << std::endl;
@@ -242,7 +248,7 @@ int main()
         lastFrame = currentFrame;
 
         glfwPollEvents();
-        handle_movement();
+        ProcessInput(window);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
