@@ -19,15 +19,13 @@ void ProcessInput(GLFWwindow* window);
 
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;
+double lastX = SCREEN_WIDTH / 2;
+double lastY = SCREEN_HEIGHT / 2;
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-GLfloat yaw = -90.0f;
-GLfloat pitch = 0.0f;
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 double deltaTime = 0.0; // Time between current frame and last frame
 double lastFrame = 0.0; // Time of the last frame
 bool firstMouse = true;
-
-double lastX = 400, lastY = 300;
 
 int main()
 {
@@ -268,25 +266,10 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     lastX = xpos;
     lastY = ypos;
 
-    GLfloat sensitivity = 0.05f;
-    xoffset *= sensitivity;
-    yoffset *= sensitivity;
-
-    yaw += (GLfloat)xoffset;
-    pitch += (GLfloat)yoffset;
-
-    if (pitch > 89.0f) pitch = 89.0f;
-    if (pitch < -89.0) pitch = -89.0f;
-
-    glm::vec3 front{};
-    front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-    front.y = sin(glm::radians(pitch));
-    front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    camera.SetCameraFront(glm::normalize(front));
+    camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     camera.ProcessMouseScroll(yoffset);
 }
-

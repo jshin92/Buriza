@@ -1,14 +1,19 @@
 #include "Camera.h"
 #include <GLM/gtc/matrix_transform.hpp>
 
+constexpr GLfloat DEFAULT_SPEED = 2.5f;
+constexpr GLfloat DEFAULT_FOV = 45.0f;
+constexpr GLfloat DEFAULT_SENSITIVITY = 0.05f;
 
-Camera::Camera(const glm::vec3& position, const glm::vec3& front, const glm::vec3& up,
-               GLfloat speed, GLfloat fov)
+Camera::Camera(const glm::vec3& position, const glm::vec3& up, const glm::vec3& front, GLfloat yaw, GLfloat pitch)
     : m_position(position)
     , m_front(front)
     , m_up(up)
-    , m_speed(speed)
-    , m_fov(fov)
+    , m_yaw(yaw)
+    , m_pitch(pitch)
+    , m_speed(DEFAULT_SPEED)
+    , m_fov(DEFAULT_FOV)
+    , m_sensitivity(DEFAULT_SENSITIVITY)
 {}
 
 const glm::vec3& Camera::GetCameraPosition() const
@@ -72,6 +77,24 @@ void Camera::ProcessMouseScroll(double yoffset)
         m_fov = 1.0f;
     if (m_fov >= 45.0f)
         m_fov = 45.0f;
+}
+
+void Camera::ProcessMouseMovement(double xoffset, double yoffset)
+{
+    xoffset *= m_sensitivity;
+    yoffset *= m_sensitivity;
+
+    m_yaw += (GLfloat)xoffset;
+    m_pitch += (GLfloat)yoffset;
+
+    if (m_pitch > 89.0f) m_pitch = 89.0f;
+    if (m_pitch < -89.0) m_pitch = -89.0f;
+
+    glm::vec3 front{};
+    front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    front.y = sin(glm::radians(m_pitch));
+    front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+    m_front = glm::normalize(front);
 }
 
 
