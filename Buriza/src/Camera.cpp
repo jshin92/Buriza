@@ -96,6 +96,3 @@ void Camera::ProcessMouseMovement(double xoffset, double yoffset)
     front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
     m_front = glm::normalize(front);
 }
-
-
-

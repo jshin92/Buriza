@@ -139,6 +139,9 @@
     <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\shaders\basic_lighting.fs" />
+    <None Include="src\shaders\basic_lighting.vs" />
+    <None Include="src\shaders\lamp.fs" />
     <None Include="src\shaders\shader.fs" />
     <None Include="src\shaders\shader.vs" />
   </ItemGroup>
