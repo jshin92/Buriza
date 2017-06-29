@@ -172,7 +172,7 @@ int main()
         lightingShader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
         lightingShader.SetVec3("lightPos", lightPos);
 
-        glm::mat4 model {};
+        glm::mat4 model{};
         model = glm::translate(model, boxPosition);
         lightingShader.SetMat4("model", model);
 
@@ -181,6 +181,9 @@ int main()
 
         glm::mat4 projection = glm::perspective(glm::radians(camera.GetFOV()), (float)width / height, 0.1f, 100.0f);
         lightingShader.SetMat4("projection", projection);
+
+        glm::mat4 normal = glm::transpose(glm::inverse(model));
+        lightingShader.SetMat4("normal", normal);
 
         glBindVertexArray(cubeVAO);
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
