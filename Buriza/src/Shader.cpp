@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <GLM/gtc/matrix_transform.hpp>
+#include <GLM/gtc/type_ptr.hpp>
 
 
 Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
@@ -94,7 +94,13 @@ void Shader::SetVec3(const char* target, GLfloat x, GLfloat y, GLfloat z)
     glUniform3f(shaderLoc, x, y, z);
 }
 
-void Shader::SetMat4(const char* target, glm::mat4& matrix)
+void Shader::SetVec3(const char* target, const glm::vec3& v)
+{
+    GLuint shaderLoc = glGetUniformLocation(m_program, target);
+    glUniform3fv(shaderLoc, 1, glm::value_ptr(v));
+}
+
+void Shader::SetMat4(const char* target, const glm::mat4& matrix)
 {
     GLuint shaderLoc = glGetUniformLocation(m_program, target);
     glUniformMatrix4fv(shaderLoc, 1, GL_FALSE, glm::value_ptr(matrix));

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
-#include <GLM/gtc/type_ptr.hpp>
+#include <GLM/fwd.hpp>
 
 
 class Shader
@@ -12,7 +12,8 @@ public:
     void Use() const;
     GLuint getProgram() const;
     void SetVec3(const char* target, GLfloat x, GLfloat y, GLfloat z);
-    void SetMat4(const char* target, glm::mat4& matrix);
+    void SetVec3(const char* target, const glm::vec3& v);
+    void SetMat4(const char* target, const glm::mat4& matrix);
 
 private:
     GLuint m_program;
