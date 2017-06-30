@@ -16,17 +16,17 @@ Camera::Camera(const glm::vec3& position, const glm::vec3& up, const glm::vec3& 
     , m_sensitivity(DEFAULT_SENSITIVITY)
 {}
 
-const glm::vec3& Camera::GetCameraPosition() const
+const glm::vec3& Camera::GetPosition() const
 {
     return m_position;
 }
 
-const glm::vec3& Camera::GetCameraFront() const
+const glm::vec3& Camera::GetFront() const
 {
     return m_front;
 }
 
-const glm::vec3& Camera::GetCameraUp() const
+const glm::vec3& Camera::GetUp() const
 {
     return m_up;
 }
@@ -36,17 +36,17 @@ float Camera::GetFOV() const
     return m_fov;
 }
 
-void Camera::SetCameraPos(const glm::vec3& cameraPos)
+void Camera::SetPosition(const glm::vec3& cameraPos)
 {
     m_position = cameraPos;
 }
 
-void Camera::SetCameraFront(const glm::vec3& cameraFront)
+void Camera::SetFront(const glm::vec3& cameraFront)
 {
     m_front = cameraFront;
 }
 
-void Camera::SetCameraUp(const glm::vec3& cameraUp)
+void Camera::SetUp(const glm::vec3& cameraUp)
 {
     m_up = cameraUp;
 }

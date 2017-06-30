@@ -22,13 +22,13 @@ class Camera
 public:
     Camera(const glm::vec3& position=DEFAULT_POSITION, const glm::vec3& up=DEFAULT_UP, const glm::vec3& front=DEFAULT_FRONT,
            GLfloat yaw=DEFAULT_YAW, GLfloat pitch=DEFAULT_PITCH);
-    const glm::vec3& GetCameraPosition() const;
-    const glm::vec3& GetCameraFront() const;
-    const glm::vec3& GetCameraUp() const;
+    const glm::vec3& GetPosition() const;
+    const glm::vec3& GetFront() const;
+    const glm::vec3& GetUp() const;
     float GetFOV() const;
-    void SetCameraPos(const glm::vec3& cameraPos);
-    void SetCameraFront(const glm::vec3& cameraFront);
-    void SetCameraUp(const glm::vec3& cameraUp);
+    void SetPosition(const glm::vec3& cameraPos);
+    void SetFront(const glm::vec3& cameraFront);
+    void SetUp(const glm::vec3& cameraUp);
     glm::mat4 GetViewMatrix();
     void ProcessKeyboard(CameraMovement direction, double deltaTime);
     void ProcessMouseScroll(double yoffset);
