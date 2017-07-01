@@ -14,6 +14,7 @@ public:
     void SetVec3(const char* target, GLfloat x, GLfloat y, GLfloat z);
     void SetVec3(const char* target, const glm::vec3& v);
     void SetMat4(const char* target, const glm::mat4& matrix);
+    void SetFloat(const char* target, GLfloat val);
 
 private:
     GLuint m_program;

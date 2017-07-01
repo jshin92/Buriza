@@ -90,18 +90,20 @@ GLuint Shader::getProgram() const
 
 void Shader::SetVec3(const char* target, GLfloat x, GLfloat y, GLfloat z)
 {
-    GLuint shaderLoc = glGetUniformLocation(m_program, target);
-    glUniform3f(shaderLoc, x, y, z);
+    glUniform3f(glGetUniformLocation(m_program, target), x, y, z);
 }
 
 void Shader::SetVec3(const char* target, const glm::vec3& v)
 {
-    GLuint shaderLoc = glGetUniformLocation(m_program, target);
-    glUniform3fv(shaderLoc, 1, glm::value_ptr(v));
+    glUniform3fv(glGetUniformLocation(m_program, target), 1, glm::value_ptr(v));
 }
 
 void Shader::SetMat4(const char* target, const glm::mat4& matrix)
 {
-    GLuint shaderLoc = glGetUniformLocation(m_program, target);
-    glUniformMatrix4fv(shaderLoc, 1, GL_FALSE, glm::value_ptr(matrix));
+    glUniformMatrix4fv(glGetUniformLocation(m_program, target), 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void Shader::SetFloat(const char* target, GLfloat val)
+{
+    glUniform1f(glGetUniformLocation(m_program, target), val);
 }
