@@ -168,10 +168,11 @@ int main()
 
         // render cube
         lightingShader.Use();
-        lightingShader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
-        lightingShader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
-        lightingShader.SetVec3("lightPos", lightPos);
         lightingShader.SetVec3("viewPos", camera.GetPosition());
+        lightingShader.SetVec3("light.position", lightPos);
+        lightingShader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+        lightingShader.SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        lightingShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
         lightingShader.SetVec3("material.ambient", 1.0f, 0.5f, 0.31f);
         lightingShader.SetVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
         lightingShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
