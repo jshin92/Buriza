@@ -15,6 +15,7 @@
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void ProcessInput(GLFWwindow* window);
+GLuint LoadTexture(const char* imageLocation);
 
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;
@@ -151,25 +152,8 @@ int main()
 
     glBindVertexArray(0);
 
-    GLuint diffuseMap;
-    glGenTextures(1, &diffuseMap);
-    glBindTexture(GL_TEXTURE_2D, diffuseMap);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    int textureWidth, textureHeight, numChannels;
-    unsigned char* image = SOIL_load_image("assets/container2.png", &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
-    if (image)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cerr << "could not load texture!" << std::endl;
-    }
-    SOIL_free_image_data(image);
+    GLuint diffuseMap = LoadTexture("assets/container2.png");
+    GLuint specularMap = LoadTexture("assets/container2_specular.png");
 
     Shader lampShader("src/shaders/basic_lighting.vs", "src/shaders/lamp.fs");
     Shader lightingShader("src/shaders/basic_lighting.vs", "src/shaders/basic_lighting.fs");
@@ -200,6 +184,7 @@ int main()
         lightingShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
         lightingShader.SetFloat("material.shininess", 32.0f);
         lightingShader.SetInt("material.diffuse", 0);
+        lightingShader.SetInt("material.specular", 1);
 
         glm::mat4 model{};
         model = glm::translate(model, boxPosition);
@@ -216,6 +201,8 @@ int main()
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, specularMap);
 
         glBindVertexArray(cubeVAO);
         glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
@@ -275,4 +262,28 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     camera.ProcessMouseScroll(yoffset);
+}
+
+GLuint LoadTexture(const char* imageLocation)
+{
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    int textureWidth, textureHeight;
+    unsigned char* image = SOIL_load_image(imageLocation, &textureWidth, &textureHeight, 0, SOIL_LOAD_RGB);
+    if (image)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cerr << "could not load texture!" << std::endl;
+    }
+    SOIL_free_image_data(image);
+    return textureID;
 }
