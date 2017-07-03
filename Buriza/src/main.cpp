@@ -119,6 +119,20 @@ int main()
         31, 32, 33, 34, 35, 36
     };
 
+    glm::vec3 boxPositions[]
+    {
+        glm::vec3(0.0f,  0.0f,  0.0f),
+        glm::vec3(2.0f,  5.0f, -15.0f),
+        glm::vec3(-1.5f, -2.2f, -2.5f),
+        glm::vec3(-3.8f, -2.0f, -12.3f),
+        glm::vec3(2.4f, -0.4f, -3.5f),
+        glm::vec3(-1.7f,  3.0f, -7.5f),
+        glm::vec3(1.3f, -2.0f, -2.5f),
+        glm::vec3(1.5f,  2.0f, -2.5f),
+        glm::vec3(1.5f,  0.2f, -1.5f),
+        glm::vec3(-1.3f,  1.0f, -1.5f)
+    };
+
     GLuint cubeVAO;
     glGenVertexArrays(1, &cubeVAO);
     glBindVertexArray(cubeVAO);
@@ -177,7 +191,8 @@ int main()
         // render cube
         lightingShader.Use();
         lightingShader.SetVec3("viewPos", camera.GetPosition());
-        lightingShader.SetVec3("light.position", lightPos);
+        //lightingShader.SetVec3("light.position", lightPos);
+        lightingShader.SetVec3("light.direction", -0.2f, -1.0f, -0.3f);
         lightingShader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
         lightingShader.SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         lightingShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
@@ -186,18 +201,13 @@ int main()
         lightingShader.SetInt("material.diffuse", 0);
         lightingShader.SetInt("material.specular", 1);
 
-        glm::mat4 model{};
-        model = glm::translate(model, boxPosition);
-        lightingShader.SetMat4("model", model);
-
         glm::mat4 view = camera.GetViewMatrix();
         lightingShader.SetMat4("view", view);
 
         glm::mat4 projection = glm::perspective(glm::radians(camera.GetFOV()), (float)width / height, 0.1f, 100.0f);
         lightingShader.SetMat4("projection", projection);
 
-        glm::mat4 normal = glm::transpose(glm::inverse(model));
-        lightingShader.SetMat4("normal", normal);
+        
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
@@ -205,7 +215,19 @@ int main()
         glBindTexture(GL_TEXTURE_2D, specularMap);
 
         glBindVertexArray(cubeVAO);
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
+
+        glm::mat4 model{};
+        for (int i = 0; i < 10; ++i)
+        {
+            model = glm::mat4();
+            model = glm::translate(model, boxPositions[i]);
+            float angle = 20.0f * i;
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            lightingShader.SetMat4("model", model);
+            glm::mat4 normal = glm::transpose(glm::inverse(model));
+            lightingShader.SetMat4("normal", normal);
+            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
+        }
 
         // render lamp
         lampShader.Use();
