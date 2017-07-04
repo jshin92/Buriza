@@ -191,13 +191,16 @@ int main()
         // render cube
         lightingShader.Use();
         lightingShader.SetVec3("viewPos", camera.GetPosition());
-        lightingShader.SetVec3("light.position", lightPos);
+        //lightingShader.SetVec3("light.position", lightPos);
         lightingShader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
         lightingShader.SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         lightingShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
         lightingShader.SetFloat("light.constant", 1.0f);
         lightingShader.SetFloat("light.linear", 0.09f);
         lightingShader.SetFloat("light.quadratic", 0.032f);
+        lightingShader.SetVec3("light.position", camera.GetPosition());
+        lightingShader.SetVec3("light.direction", camera.GetFront());
+        lightingShader.SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
         lightingShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
         lightingShader.SetFloat("material.shininess", 32.0f);
         lightingShader.SetInt("material.diffuse", 0);
