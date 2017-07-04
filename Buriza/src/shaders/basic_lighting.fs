@@ -46,12 +46,15 @@ void main() {
         vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
 
         float distance = length(light.position - FragPos);
-        float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * distance * distance);
+        float attenuation = 1.0 / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
-        vec3 result = attenuation * (ambient + diffuse + specular);
+        diffuse *= attenuation;
+        specular *= attenuation;
+
+        vec3 result =  ambient + diffuse + specular;
         FragColor = vec4(result, 1.0);
     } else {
-        FragColor = vec4(light.ambient * vec3(texture(material.diffuse, TexCoords)), 1.0);
+        FragColor = vec4(ambient, 1.0);
     }
 
     
