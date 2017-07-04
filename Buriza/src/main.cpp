@@ -191,9 +191,8 @@ int main()
         // render cube
         lightingShader.Use();
         lightingShader.SetVec3("viewPos", camera.GetPosition());
-        //lightingShader.SetVec3("light.position", lightPos);
-        lightingShader.SetVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-        lightingShader.SetVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        lightingShader.SetVec3("light.ambient", 0.15f, 0.15f, 0.15f);
+        lightingShader.SetVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
         lightingShader.SetFloat("light.constant", 1.0f);
         lightingShader.SetFloat("light.linear", 0.09f);
@@ -201,6 +200,7 @@ int main()
         lightingShader.SetVec3("light.position", camera.GetPosition());
         lightingShader.SetVec3("light.direction", camera.GetFront());
         lightingShader.SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        lightingShader.SetFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
         lightingShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
         lightingShader.SetFloat("material.shininess", 32.0f);
         lightingShader.SetInt("material.diffuse", 0);
@@ -212,7 +212,6 @@ int main()
         glm::mat4 projection = glm::perspective(glm::radians(camera.GetFOV()), (float)width / height, 0.1f, 100.0f);
         lightingShader.SetMat4("projection", projection);
 
-        
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, diffuseMap);
@@ -233,6 +232,7 @@ int main()
             lightingShader.SetMat4("normal", normal);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
         }
+
 
         // render lamp
         lampShader.Use();
