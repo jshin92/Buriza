@@ -191,6 +191,13 @@ int main()
         // render cube
         lightingShader.Use();
         lightingShader.SetVec3("viewPos", camera.GetPosition());
+
+        // directional light
+        lightingShader.SetVec3("directionalLight.direction", -0.2f, -1.0f, -0.3f);
+        lightingShader.SetVec3("directionalLight.ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader.SetVec3("directionalLight.diffuse", 0.4f, 0.4f, 0.4f);
+        lightingShader.SetVec3("directionalLight.specular", 0.5f, 0.5f, 0.5f);
+
         lightingShader.SetVec3("light.ambient", 0.15f, 0.15f, 0.15f);
         lightingShader.SetVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
