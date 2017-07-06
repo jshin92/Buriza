@@ -238,16 +238,16 @@ int main()
         lightingShader.SetFloat("pointLights[3].linear", 0.09f);
         lightingShader.SetFloat("pointLights[3].quadratic", 0.032f);
 
-        lightingShader.SetVec3("light.ambient", 0.15f, 0.15f, 0.15f);
-        lightingShader.SetVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
-        lightingShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
-        lightingShader.SetFloat("light.constant", 1.0f);
-        lightingShader.SetFloat("light.linear", 0.09f);
-        lightingShader.SetFloat("light.quadratic", 0.032f);
-        lightingShader.SetVec3("light.position", camera.GetPosition());
-        lightingShader.SetVec3("light.direction", camera.GetFront());
-        lightingShader.SetFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-        lightingShader.SetFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+        lightingShader.SetVec3("spotLight.ambient", 0.15f, 0.15f, 0.15f);
+        lightingShader.SetVec3("spotLight.diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader.SetVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.SetFloat("spotLight.constant", 1.0f);
+        lightingShader.SetFloat("spotLight.linear", 0.09f);
+        lightingShader.SetFloat("spotLight.quadratic", 0.032f);
+        lightingShader.SetVec3("spotLight.position", camera.GetPosition());
+        lightingShader.SetVec3("spotLight.direction", camera.GetFront());
+        lightingShader.SetFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+        lightingShader.SetFloat("spotLight.outerCutOff", glm::cos(glm::radians(17.5f)));
 
         lightingShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
         lightingShader.SetFloat("material.shininess", 32.0f);
