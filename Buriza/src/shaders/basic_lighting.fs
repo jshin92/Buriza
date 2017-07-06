@@ -8,6 +8,7 @@ struct Material {
 
 struct DirectionalLight {
     vec3 direction;
+
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -16,12 +17,13 @@ struct DirectionalLight {
 struct PointLight {
     vec3 position;
 
-    float constant;
-    float linear;
-    float quadratic;
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+    float constant;
+    float linear;
+    float quadratic;
 };
 
 #define NUM_POINT_LIGHTS 4
@@ -95,6 +97,10 @@ void main() {
     vec3 result = CalculateDirectionalLight(directionalLight, norm, viewDir);
 
     // phase 2 : point lights
+    for (int i = 0; i < 4; ++i)
+    {
+        result += CalculatePointLight(pointLights[i], norm, viewDir, FragPos);
+    }
 
     FragColor = vec4(result, 1.0);
 }
