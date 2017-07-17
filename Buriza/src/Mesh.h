@@ -13,16 +13,10 @@ struct Vertex
     glm::vec2 TexCoords;
 };
 
-enum class TextureType
-{
-    DIFFUSE,
-    SPECULAR
-};
-
 struct Texture
 {
     GLuint id;
-    TextureType type;
+    std::string type;
 };
 
 class Mesh

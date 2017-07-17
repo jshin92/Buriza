@@ -1,3 +1,4 @@
+#include <string>
 #include "Mesh.h"
 
 Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vector<Texture>& textures) 
@@ -5,6 +6,27 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     m_vertices = vertices;
     m_indices = indices;
     m_textures = textures;
+}
+
+void Mesh::Draw(const Shader& shader)
+{
+    GLuint diffuseNumber = 1;
+    GLuint specularNumber = 1;
+    for (GLuint i = 0; i < m_textures.size(); ++i)
+    {
+        glActiveTexture(GL_TEXTURE0 + i);
+        std::string& textureType = m_textures[i].type;
+        std::string index{};
+        if (textureType == "texture_diffuse") index = std::to_string(diffuseNumber++);
+        else if (textureType == "texture_specular") index = std::to_string(specularNumber++);
+        shader.SetInt(("material." + textureType + index).c_str(), i);
+    }
+    glActiveTexture(GL_TEXTURE0);
+
+    // draw mesh
+    glBindVertexArray(m_VAO);
+    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 }
 
 void Mesh::SetupMesh()
