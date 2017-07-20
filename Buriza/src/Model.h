@@ -13,7 +13,7 @@ class Model
 {
 public:
     Model(const char* path);
-    void Draw(const Shader& shader);
+    void Draw(const Shader& shader) const;
     virtual ~Model() = default;
 
 private:
@@ -22,7 +22,7 @@ private:
     void ProcessMesh(aiMesh* mesh, const aiScene* scene);
     std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName);
 
-    std::vector<Mesh> meshes;
-    std::string directory;
+    std::vector<Mesh> m_meshes;
+    std::string m_directory;
 };
 

@@ -8,14 +8,14 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     m_textures = textures;
 }
 
-void Mesh::Draw(const Shader& shader)
+void Mesh::Draw(const Shader& shader) const
 {
     GLuint diffuseNumber = 1;
     GLuint specularNumber = 1;
     for (GLuint i = 0; i < m_textures.size(); ++i)
     {
         glActiveTexture(GL_TEXTURE0 + i);
-        std::string& textureType = m_textures[i].type;
+        const auto& textureType = m_textures[i].type;
         std::string index{};
         if (textureType == "texture_diffuse") index = std::to_string(diffuseNumber++);
         else if (textureType == "texture_specular") index = std::to_string(specularNumber++);
