@@ -5,9 +5,9 @@
 #include "Mesh.h"
 #include "Shader.h"
 
-class aiMesh;
-class aiNode;
-class aiScene;
+struct aiMesh;
+struct aiNode;
+struct aiScene;
 
 class Model
 {
@@ -17,7 +17,7 @@ public:
     virtual ~Model() = default;
 
 private:
-    void LoadModel(const char* path);
+    void LoadModel(const std::string& path);
     void ProcessNode(aiNode* node, const aiScene* scene);
     void ProcessMesh(aiMesh* mesh, const aiScene* scene);
     std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName);
