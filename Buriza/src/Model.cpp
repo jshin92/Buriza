@@ -34,4 +34,22 @@ void Model::LoadModel(const std::string& path)
 
 void Model::ProcessNode(aiNode* node, const aiScene* scene)
 {
+    for (GLuint i = 0; i < node->mNumMeshes; ++i)
+    {
+        auto mesh = scene->mMeshes[node->mMeshes[i]];
+        m_meshes.emplace_back(ProcessMesh(mesh, scene));
+    }
+
+    for (GLuint i = 0; i < node->mNumChildren; ++i)
+    {
+        ProcessNode(node->mChildren[i], scene);
+    }
+}
+
+Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
+{
+    std::vector<Vertex> vertices{};
+    std::vector<GLuint> indices{};
+    std::vector<Texture> textures{};
+    return Mesh(vertices, indices, textures);
 }
