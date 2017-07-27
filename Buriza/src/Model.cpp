@@ -51,5 +51,58 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     std::vector<Vertex> vertices{};
     std::vector<GLuint> indices{};
     std::vector<Texture> textures{};
+
+    // Vertices
+    for (GLuint i = 0; i < mesh->mNumVertices; ++i)
+    {
+        Vertex vertex{};
+        // process vertex positions
+        glm::vec3 vector{mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z};
+        vertex.Position = vector;
+
+        // normals
+        vector.x = mesh->mNormals[i].x;
+        vector.y = mesh->mNormals[i].y;
+        vector.z = mesh->mNormals[i].z;
+        vertex.Normal = vector;
+
+        // texture coordinates
+        glm::vec2 vec{0.0f, 0.0f};
+        if (mesh->mTextureCoords[0])
+        {
+            vec.x = mesh->mTextureCoords[0][i].x;
+            vec.y = mesh->mTextureCoords[0][i].y;
+        }
+        vertex.TexCoords = vec;
+
+        vertices.emplace_back(vertex);
+    }
+
+    // Indices
+    for (GLuint i = 0; i < mesh->mNumFaces; ++i)
+    {
+        aiFace face = mesh->mFaces[i];
+        for (GLuint j = 0; j < face.mNumIndices; ++j)
+        {
+            indices.emplace_back(face.mIndices[j]);
+        }
+    }
+
+    // Materials
+    if (mesh->mMaterialIndex >= 0)
+    {
+        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+        std::vector<Texture> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+
+        std::vector<Texture> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+    }
+
     return Mesh(vertices, indices, textures);
+}
+
+std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName)
+{
+    return std::vector<Texture>();
 }
