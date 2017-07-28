@@ -4,6 +4,14 @@
 #include <ASSIMP/postprocess.h>
 #include "Model.h"
 
+namespace
+{
+    GLuint TextureFromFile(const char* path, const std::string& directory, bool gamma=false)
+    {
+        return 0;
+    }
+}
+
 Model::Model(const char* path)
 {
     LoadModel(std::string(path));
@@ -104,5 +112,16 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
 std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, const std::string& typeName)
 {
-    return std::vector<Texture>();
+    std::vector<Texture> textures{};
+    for (GLuint i = 0; i < mat->GetTextureCount(type); ++i)
+    {
+        aiString str;
+        mat->GetTexture(type, i, &str);
+        Texture texture;
+        texture.id = TextureFromFile(str.C_Str(), m_directory);
+        texture.type = typeName;
+        texture.path = str;
+        textures.emplace_back(texture);
+    }
+    return textures;
 }

@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include <ASSIMP/types.h>
 #include <GL/glew.h>
 #include <GLM/glm.hpp>
 #include "shader.h"
@@ -17,6 +18,7 @@ struct Texture
 {
     GLuint id;
     std::string type;
+    aiString path;
 };
 
 class Mesh
