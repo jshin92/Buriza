@@ -79,10 +79,14 @@
     <None Include="src\shaders\basic_lighting.vs" />
     <None Include="src\shaders\basic_lighting.fs" />
     <None Include="src\shaders\lamp.fs" />
+    <None Include="assets\nanosuit\nanosuit.mtl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="assets\nanosuit\nanosuit.obj" />
   </ItemGroup>
 </Project>
