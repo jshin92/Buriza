@@ -10,6 +10,7 @@
 
 #include "Camera.h"
 #include "Input.h"
+#include "Model.h"
 #include "Shader.h"
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -181,6 +182,8 @@ int main()
     Shader lightingShader("src/shaders/basic_lighting.vs", "src/shaders/basic_lighting.fs");
 
     glm::vec3 boxPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+    Model nanosuit("assets/nanosuit/nanosuit.obj");
+
 
     while (!glfwWindowShouldClose(window))
     {
@@ -194,7 +197,7 @@ int main()
 
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        
         // render cube
         lightingShader.Use();
         lightingShader.SetVec3("viewPos", camera.GetPosition());
@@ -267,7 +270,7 @@ int main()
         glBindTexture(GL_TEXTURE_2D, specularMap);
 
         glBindVertexArray(cubeVAO);
-
+        /*
         glm::mat4 model{};
         for (int i = 0; i < 10; ++i)
         {
@@ -295,7 +298,9 @@ int main()
 
             glBindVertexArray(lightVAO);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
-        }
+        }*/
+
+        nanosuit.Draw(lightingShader);
 
         glBindVertexArray(0);
 
