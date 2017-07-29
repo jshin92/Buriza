@@ -115,11 +115,16 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType 
     {
         aiString str;
         mat->GetTexture(type, i, &str);
+
+        if (std::find(m_loadedTextures.begin(), m_loadedTextures.end(), str) != m_loadedTextures.end()) continue;
+
         Texture texture;
         texture.id = TextureFromFile(str.C_Str(), m_directory);
         texture.type = typeName;
         texture.path = str;
         textures.emplace_back(texture);
+
+        m_loadedTextures.emplace_back(str);
     }
     return textures;
 }
@@ -134,7 +139,7 @@ namespace
         GLuint textureID;
         glGenTextures(1, &textureID);
 
-        GLint width, height, numComponents;
+        GLint width, height;//, numComponents;
         //GLubyte* data = stbi_load(filename.c_str(), &width, &height, &numComponents, 0);
         GLubyte* data = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
         if (data)

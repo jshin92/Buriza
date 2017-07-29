@@ -24,5 +24,6 @@ private:
 
     std::vector<Mesh> m_meshes;
     std::string m_directory;
+    std::vector<aiString> m_loadedTextures;
 };
 
