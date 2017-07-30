@@ -17,13 +17,13 @@ Model::Model(const char* path)
 
 void Model::Draw(const Shader& shader) const
 {
+    shader.Use();
     for (const auto& mesh : m_meshes)
     {
         mesh.Draw(shader);
     }
 }
 
-// todo: change this back to all take in conist char * and convert inside
 void Model::LoadModel(const std::string& path)
 {
     Assimp::Importer importer{};

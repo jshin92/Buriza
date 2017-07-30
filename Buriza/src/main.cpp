@@ -284,7 +284,8 @@ int main()
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
         }
 
-
+        */
+        glm::mat4 model{};
         // render lamps
         lampShader.Use();
         for (int i = 0; i < 4; ++i)
@@ -298,9 +299,9 @@ int main()
 
             glBindVertexArray(lightVAO);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
-        }*/
+        }
 
-        nanosuit.Draw(lightingShader);
+        nanosuit.Draw(lampShader);
 
         glBindVertexArray(0);
 

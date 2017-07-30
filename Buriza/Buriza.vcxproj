@@ -143,6 +143,7 @@
     <ClInclude Include="src\Shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\nanosuit\nanosuit.blend" />
     <None Include="assets\nanosuit\nanosuit.mtl" />
     <None Include="src\shaders\basic_lighting.fs" />
     <None Include="src\shaders\basic_lighting.vs" />
@@ -152,6 +153,23 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg" />
+    <Image Include="assets\nanosuit\arm_dif.png" />
+    <Image Include="assets\nanosuit\arm_showroom_ddn.png" />
+    <Image Include="assets\nanosuit\arm_showroom_spec.png" />
+    <Image Include="assets\nanosuit\body_dif.png" />
+    <Image Include="assets\nanosuit\body_showroom_ddn.png" />
+    <Image Include="assets\nanosuit\body_showroom_spec.png" />
+    <Image Include="assets\nanosuit\glass_ddn.png" />
+    <Image Include="assets\nanosuit\glass_dif.png" />
+    <Image Include="assets\nanosuit\hand_dif.png" />
+    <Image Include="assets\nanosuit\hand_showroom_ddn.png" />
+    <Image Include="assets\nanosuit\hand_showroom_spec.png" />
+    <Image Include="assets\nanosuit\helmet_diff.png" />
+    <Image Include="assets\nanosuit\helmet_showroom_ddn.png" />
+    <Image Include="assets\nanosuit\helmet_showroom_spec.png" />
+    <Image Include="assets\nanosuit\leg_dif.png" />
+    <Image Include="assets\nanosuit\leg_showroom_ddn.png" />
+    <Image Include="assets\nanosuit\leg_showroom_spec.png" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="assets\nanosuit\nanosuit.obj">
@@ -160,6 +178,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\nanosuit\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

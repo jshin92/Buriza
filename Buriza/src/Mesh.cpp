@@ -6,6 +6,7 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices, std::vec
     m_vertices = vertices;
     m_indices = indices;
     m_textures = textures;
+    SetupMesh();
 }
 
 void Mesh::Draw(const Shader& shader) const
