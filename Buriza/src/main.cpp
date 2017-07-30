@@ -270,7 +270,6 @@ int main()
         glBindTexture(GL_TEXTURE_2D, specularMap);
 
         glBindVertexArray(cubeVAO);
-        /*
         glm::mat4 model{};
         for (int i = 0; i < 10; ++i)
         {
@@ -284,26 +283,26 @@ int main()
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
         }
 
-        */
-        glm::mat4 model{};
-        model = glm::scale(model, glm::vec3(0.2f));
-        modelShader.Use();
-        modelShader.SetMat4("model", model);
-        modelShader.SetMat4("view", view);
-        modelShader.SetMat4("projection", projection);
+
         // render lamps
-        /*lampShader.Use();
+        lampShader.Use();
         for (int i = 0; i < 4; ++i)
         {
             model = glm::mat4();
             model = glm::translate(model, pointLightPositions[i]);
             model = glm::scale(model, glm::vec3(0.2f));
-
+            lampShader.SetMat4("model", model);
+            lampShader.SetMat4("view", view);
+            lampShader.SetMat4("projection", projection);
             glBindVertexArray(lightVAO);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
-        }*/
+        }
 
-        nanosuit.Draw(modelShader);
+        lightingShader.Use();
+        model = glm::mat4();
+        model = glm::scale(model, glm::vec3(0.2f));
+        lightingShader.SetMat4("model", model);
+        nanosuit.Draw(lightingShader);
 
         glBindVertexArray(0);
 
