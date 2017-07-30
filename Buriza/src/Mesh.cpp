@@ -21,6 +21,7 @@ void Mesh::Draw(const Shader& shader) const
         if (textureType == "texture_diffuse") index = std::to_string(diffuseNumber++);
         else if (textureType == "texture_specular") index = std::to_string(specularNumber++);
         shader.SetInt(("material." + textureType + index).c_str(), i);
+        glBindTexture(GL_TEXTURE_2D, m_textures[i].id);
     }
     glActiveTexture(GL_TEXTURE0);
 

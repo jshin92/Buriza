@@ -81,6 +81,8 @@
     <None Include="src\shaders\lamp.fs" />
     <None Include="assets\nanosuit\nanosuit.mtl" />
     <None Include="assets\nanosuit\nanosuit.blend" />
+    <None Include="src\shaders\model_loading.fs" />
+    <None Include="src\shaders\model_loading.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

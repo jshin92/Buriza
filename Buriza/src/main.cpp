@@ -180,8 +180,8 @@ int main()
 
     Shader lampShader("src/shaders/basic_lighting.vs", "src/shaders/lamp.fs");
     Shader lightingShader("src/shaders/basic_lighting.vs", "src/shaders/basic_lighting.fs");
+    Shader modelShader("src/shaders/model_loading.vs", "src/shaders/model_loading.fs");
 
-    glm::vec3 boxPosition = glm::vec3(0.0f, 0.0f, 0.0f);
     Model nanosuit("assets/nanosuit/nanosuit.obj");
 
 
@@ -286,22 +286,24 @@ int main()
 
         */
         glm::mat4 model{};
+        model = glm::scale(model, glm::vec3(0.2f));
+        modelShader.Use();
+        modelShader.SetMat4("model", model);
+        modelShader.SetMat4("view", view);
+        modelShader.SetMat4("projection", projection);
         // render lamps
-        lampShader.Use();
+        /*lampShader.Use();
         for (int i = 0; i < 4; ++i)
         {
             model = glm::mat4();
             model = glm::translate(model, pointLightPositions[i]);
             model = glm::scale(model, glm::vec3(0.2f));
-            lampShader.SetMat4("model", model);
-            lampShader.SetMat4("view", view);
-            lampShader.SetMat4("projection", projection);
 
             glBindVertexArray(lightVAO);
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, nullptr);
-        }
+        }*/
 
-        nanosuit.Draw(lampShader);
+        nanosuit.Draw(modelShader);
 
         glBindVertexArray(0);
 
