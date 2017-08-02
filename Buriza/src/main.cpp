@@ -64,7 +64,7 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-    Shader modelShader("src/shaders/model_loading.vs", "src/shaders/model_loading.fs");
+    Shader modelShader("src/shaders/model_loading.vs", "src/shaders/linear_depth.fs");
     modelShader.Use();
     Model cube("assets/cube_textured/cube_textured.obj");
     Model cube2("assets/cube_textured/cube_textured.obj");

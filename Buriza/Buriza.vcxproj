@@ -148,6 +148,7 @@
     <None Include="src\shaders\basic_lighting.fs" />
     <None Include="src\shaders\basic_lighting.vs" />
     <None Include="src\shaders\lamp.fs" />
+    <None Include="src\shaders\linear_depth.fs" />
     <None Include="src\shaders\model_loading.fs" />
     <None Include="src\shaders\model_loading.vs" />
     <None Include="src\shaders\shader.fs" />

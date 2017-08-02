@@ -83,6 +83,7 @@
     <None Include="assets\nanosuit\nanosuit.blend" />
     <None Include="src\shaders\model_loading.fs" />
     <None Include="src\shaders\model_loading.vs" />
+    <None Include="src\shaders\linear_depth.fs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">
