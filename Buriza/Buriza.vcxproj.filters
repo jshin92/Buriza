@@ -84,6 +84,7 @@
     <None Include="src\shaders\model_loading.fs" />
     <None Include="src\shaders\model_loading.vs" />
     <None Include="src\shaders\linear_depth.fs" />
+    <None Include="src\shaders\single_color.fs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

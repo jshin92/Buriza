@@ -53,7 +53,9 @@ int main()
         return -1;
     }
 
-    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
 
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
@@ -65,7 +67,7 @@ int main()
     glfwSetScrollCallback(window, scroll_callback);
 
     Shader modelShader("src/shaders/model_loading.vs", "src/shaders/model_loading.fs");
-    modelShader.Use();
+    Shader singleColorShader("src/shaders/shader.vs", "src/shaders/single_color.fs");
     Model cube("assets/cube_textured/cube_textured.obj");
     Model cube2("assets/cube_textured/cube_textured.obj");
     Model plane("assets/plane.obj");
@@ -81,15 +83,29 @@ int main()
         ProcessInput(window);
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
+        // set uniforms
+        singleColorShader.Use();
+        glm::mat4 model{};
         glm::mat4 view = camera.GetViewMatrix();
-        modelShader.SetMat4("view", view);
-
         glm::mat4 projection = glm::perspective(glm::radians(camera.GetFOV()), (float)width / height, 0.1f, 100.0f);
+        singleColorShader.SetMat4("view", view);
+        singleColorShader.SetMat4("projection", projection);
+
+        modelShader.Use();
+        modelShader.SetMat4("view", view);
         modelShader.SetMat4("projection", projection);
 
-        glm::mat4 model{};
+        glStencilMask(0x00); // make sure we don't update the stencil buffer while drawing the floor
+       
+        model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
+        modelShader.SetMat4("model", model);
+        plane.Draw(modelShader);
+
+        glStencilFunc(GL_ALWAYS, 1, 0xFF); // all fragments should update the stencil buffer
+        glStencilMask(0xFF); // enable writing to the stencil buffer
+        model = glm::mat4{};
         model = glm::scale(model, glm::vec3(0.5f));
         modelShader.SetMat4("model", model);
         cube.Draw(modelShader);
@@ -100,10 +116,23 @@ int main()
         modelShader.SetMat4("model", model);
         cube2.Draw(modelShader);
 
+        glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+        glStencilMask(0x00); // disable writing to the stencil buffer
+        glDisable(GL_DEPTH_TEST);
+        singleColorShader.Use();
         model = glm::mat4{};
-        model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
-        modelShader.SetMat4("model", model);
-        plane.Draw(modelShader);
+        model = glm::scale(model, glm::vec3(0.55f));
+        singleColorShader.SetMat4("model", model);
+        cube.Draw(singleColorShader);
+
+        model = glm::mat4{};
+        model = glm::translate(model, glm::vec3(0.5f, 0.0f, -2.0f));
+        model = glm::scale(model, glm::vec3(0.55f));
+        singleColorShader.SetMat4("model", model);
+        cube2.Draw(singleColorShader);
+
+        glStencilMask(0xFF);
+        glEnable(GL_DEPTH_TEST);
 
         glBindVertexArray(0);
 
