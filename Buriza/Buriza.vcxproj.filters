@@ -80,19 +80,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\shader.fs" />
-    <None Include="src\shaders\shader.vs" />
-    <None Include="src\shaders\basic_lighting.vs" />
-    <None Include="src\shaders\basic_lighting.fs" />
-    <None Include="src\shaders\lamp.fs" />
     <None Include="assets\nanosuit\nanosuit.mtl" />
     <None Include="assets\nanosuit\nanosuit.blend" />
-    <None Include="src\shaders\model_loading.fs" />
-    <None Include="src\shaders\model_loading.vs" />
-    <None Include="src\shaders\linear_depth.fs" />
-    <None Include="src\shaders\single_color.fs" />
-    <None Include="src\shaders\text.fs" />
-    <None Include="src\shaders\text.vs" />
+    <None Include="shaders\basic_lighting.fs" />
+    <None Include="shaders\basic_lighting.vs" />
+    <None Include="shaders\lamp.fs" />
+    <None Include="shaders\linear_depth.fs" />
+    <None Include="shaders\model_loading.fs" />
+    <None Include="shaders\model_loading.vs" />
+    <None Include="shaders\shader.fs" />
+    <None Include="shaders\shader.vs" />
+    <None Include="shaders\single_color.fs" />
+    <None Include="shaders\text.fs" />
+    <None Include="shaders\text.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

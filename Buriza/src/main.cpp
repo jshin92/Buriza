@@ -65,12 +65,12 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-    Shader modelShader("src/shaders/model_loading.vs", "src/shaders/model_loading.fs");
+    Shader modelShader("shaders/model_loading.vs", "shaders/model_loading.fs");
     Model cube("assets/cube_textured/cube_textured.obj");
     Model cube2("assets/cube_textured/cube_textured.obj");
     Model plane("assets/plane.obj");
 
-    TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "src/shaders/text.vs", "src/shaders/text.fs"};
+    TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "shaders/text.vs", "shaders/text.fs"};
 
     while (!glfwWindowShouldClose(window))
     {
