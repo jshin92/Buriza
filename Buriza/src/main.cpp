@@ -11,6 +11,7 @@
 #include "Input.h"
 #include "Model.h"
 #include "Shader.h"
+#include "TextRenderer.h"
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -52,6 +53,8 @@ int main()
     }
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
@@ -67,12 +70,15 @@ int main()
     Model cube2("assets/cube_textured/cube_textured.obj");
     Model plane("assets/plane.obj");
 
+    TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "src/shaders/text.vs", "src/shaders/text.fs"};
+
     while (!glfwWindowShouldClose(window))
     {
         // Calculate deltatime of current frame
         GLfloat currentFrame = (GLfloat)glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+        GLfloat fps = 1.0f / (GLfloat) deltaTime;
 
         glfwPollEvents();
         ProcessInput(window);
@@ -105,6 +111,7 @@ int main()
 
         glBindVertexArray(0);
 
+        textRenderer.Draw(std::to_string(fps), glm::vec2(25.0f, 565.0f), glm::vec3(0.5f, 0.8f, 0.2f));
         glfwSwapBuffers(window);
     }
 

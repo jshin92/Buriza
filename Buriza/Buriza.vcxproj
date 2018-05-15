@@ -81,7 +81,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32d.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32d.lib;assimp.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -124,6 +124,7 @@
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="3rdParty\lib\glfw3.lib" />
@@ -141,6 +142,7 @@
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\TextRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\nanosuit\nanosuit.blend" />
@@ -154,6 +156,8 @@
     <None Include="src\shaders\shader.fs" />
     <None Include="src\shaders\shader.vs" />
     <None Include="src\shaders\single_color.fs" />
+    <None Include="src\shaders\text.fs" />
+    <None Include="src\shaders\text.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg" />

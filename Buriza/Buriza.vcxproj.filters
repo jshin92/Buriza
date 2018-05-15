@@ -33,6 +33,9 @@
     <ClCompile Include="src\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\TextRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="3rdParty\lib\glfw3.lib" />
@@ -72,6 +75,9 @@
     <ClInclude Include="src\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\TextRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\shader.fs" />
@@ -85,6 +91,8 @@
     <None Include="src\shaders\model_loading.vs" />
     <None Include="src\shaders\linear_depth.fs" />
     <None Include="src\shaders\single_color.fs" />
+    <None Include="src\shaders\text.fs" />
+    <None Include="src\shaders\text.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">
