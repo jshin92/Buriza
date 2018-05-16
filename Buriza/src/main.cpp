@@ -67,8 +67,8 @@ int main()
 
     Shader modelShader("shaders/model_loading.vs", "shaders/model_loading.fs");
     Model cube("assets/cube_textured/cube_textured.obj");
-    Model cube2("assets/cube_textured/cube_textured.obj");
     Model plane("assets/plane.obj");
+    Model hero("assets/hero/hero.obj");
 
     TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "shaders/text.vs", "shaders/text.fs"};
 
@@ -94,20 +94,20 @@ int main()
         modelShader.SetMat4("view", view);
         modelShader.SetMat4("projection", projection);
 
-        model = glm::translate(model, glm::vec3(0.0f, -0.5f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, -0.8f, 0.0f));
         modelShader.SetMat4("model", model);
         plane.Draw(modelShader);
 
         model = glm::mat4{};
-        model = glm::scale(model, glm::vec3(0.5f));
+        model = glm::scale(model, glm::vec3(0.8f));
         modelShader.SetMat4("model", model);
         cube.Draw(modelShader);
 
         model = glm::mat4{};
-        model = glm::translate(model, glm::vec3(0.5f, 0.0f, -2.0f));
-        model = glm::scale(model, glm::vec3(0.5f));
+        model = glm::translate(model, glm::vec3(0.5f, -0.2f, 2.0f));
+        model = glm::scale(model, glm::vec3(0.25f));
         modelShader.SetMat4("model", model);
-        cube2.Draw(modelShader);
+        hero.Draw(modelShader);
 
         glBindVertexArray(0);
 
