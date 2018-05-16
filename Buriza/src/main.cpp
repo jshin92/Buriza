@@ -22,7 +22,7 @@ constexpr int SCREEN_HEIGHT = 600;
 double lastX = SCREEN_WIDTH / 2;
 double lastY = SCREEN_HEIGHT / 2;
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.5f, 0.7f, 3.8f));
 double deltaTime = 0.0; // Time between current frame and last frame
 double lastFrame = 0.0; // Time of the last frame
 bool firstMouse = true;
@@ -94,17 +94,17 @@ int main()
         modelShader.SetMat4("view", view);
         modelShader.SetMat4("projection", projection);
 
-        model = glm::translate(model, glm::vec3(0.0f, -0.8f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
         modelShader.SetMat4("model", model);
         plane.Draw(modelShader);
 
         model = glm::mat4{};
-        model = glm::scale(model, glm::vec3(0.8f));
+        model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
         modelShader.SetMat4("model", model);
         cube.Draw(modelShader);
 
         model = glm::mat4{};
-        model = glm::translate(model, glm::vec3(0.5f, -0.2f, 2.0f));
+        model = glm::translate(model, glm::vec3(0.5f, 0.6f, 2.0f));
         model = glm::scale(model, glm::vec3(0.25f));
         modelShader.SetMat4("model", model);
         hero.Draw(modelShader);
