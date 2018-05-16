@@ -1,5 +1,7 @@
-#include "Camera.h"
 #include <GLM/gtc/matrix_transform.hpp>
+#include <GLFW/glfw3.h>
+
+#include "Camera.h"
 
 constexpr GLfloat DEFAULT_SPEED = 2.5f;
 constexpr GLfloat DEFAULT_FOV = 45.0f;
@@ -54,6 +56,18 @@ void Camera::SetUp(const glm::vec3& cameraUp)
 glm::mat4 Camera::GetViewMatrix()
 {
     return glm::lookAt(m_position, m_position + m_front, m_up);
+}
+
+void Camera::ProcessDirection(const bool(&keys)[MAX_INPUT_SIZE], double deltaTime)
+{
+    if (keys[GLFW_KEY_W])
+        ProcessKeyboard(CameraMovement::FORWARD, deltaTime);
+    if (keys[GLFW_KEY_S])
+        ProcessKeyboard(CameraMovement::BACKWARD, deltaTime);
+    if (keys[GLFW_KEY_A])
+        ProcessKeyboard(CameraMovement::LEFT, deltaTime);
+    if (keys[GLFW_KEY_D])
+        ProcessKeyboard(CameraMovement::RIGHT, deltaTime);
 }
 
 void Camera::ProcessKeyboard(CameraMovement direction, double deltaTime)

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <GL/glew.h>
 #include <GLM/glm.hpp>
+
+#include "Input.h"
 
 enum class CameraMovement
 {
@@ -30,13 +31,15 @@ public:
     void SetFront(const glm::vec3& cameraFront);
     void SetUp(const glm::vec3& cameraUp);
     glm::mat4 GetViewMatrix();
-    void ProcessKeyboard(CameraMovement direction, double deltaTime);
+    void ProcessDirection(const bool (&keys)[MAX_INPUT_SIZE], double deltaTime);
     void ProcessMouseScroll(double yoffset);
     void ProcessMouseMovement(double xoffset, double yoffset);
 
     virtual ~Camera() = default;
 
 private:
+    void ProcessKeyboard(CameraMovement direction, double deltaTime);
+
     glm::vec3 m_position;
     glm::vec3 m_front;
     glm::vec3 m_up;
