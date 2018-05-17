@@ -3,7 +3,7 @@
 #include <vector>
 #include <ASSIMP/material.h>
 #include "Mesh.h"
-#include "Shader.h"
+#include "../Util/Shader.h"
 
 struct aiMesh;
 struct aiNode;

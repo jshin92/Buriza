@@ -8,10 +8,10 @@
 #include <GLM/gtc/matrix_transform.hpp>
 
 #include "Camera.h"
-#include "Input.h"
-#include "Model.h"
-#include "Shader.h"
-#include "TextRenderer.h"
+#include "Entity/Model.h"
+#include "Util/Input.h"
+#include "Util/Shader.h"
+#include "Util/TextRenderer.h"
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);

@@ -5,7 +5,7 @@
 #include <ASSIMP/types.h>
 #include <GL/glew.h>
 #include <GLM/glm.hpp>
-#include "shader.h"
+#include "../Util/Shader.h"
 
 struct Vertex
 {
