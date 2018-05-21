@@ -8,6 +8,7 @@
 #include <GLM/gtc/matrix_transform.hpp>
 
 #include "Camera.h"
+#include "Entity/Entity.h"
 #include "Entity/Model.h"
 #include "Util/Input.h"
 #include "Util/Shader.h"
@@ -66,9 +67,9 @@ int main()
     glfwSetScrollCallback(window, scroll_callback);
 
     Shader modelShader("shaders/model_loading.vs", "shaders/model_loading.fs");
-    Model cube("assets/cube_textured/cube_textured.obj");
-    Model plane("assets/plane.obj");
-    Model hero("assets/hero/hero.obj");
+    Entity cube("assets/cube_textured/cube_textured.obj", glm::vec3(0.0f, 1.0f, 0.0f));
+    Entity plane("assets/plane.obj", glm::vec3(0.0f, 0.0f, 0.0f));
+    Entity hero("assets/hero/hero.obj", glm::vec3(0.5f, 0.6f, 2.0f), 0.25f);
 
     TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "shaders/text.vs", "shaders/text.fs"};
 
@@ -86,7 +87,6 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glm::mat4 model{};
         glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 projection = glm::perspective(glm::radians(camera.GetFOV()), (float)width / height, 0.1f, 100.0f);
 
@@ -94,24 +94,14 @@ int main()
         modelShader.SetMat4("view", view);
         modelShader.SetMat4("projection", projection);
 
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        modelShader.SetMat4("model", model);
         plane.Draw(modelShader);
-
-        model = glm::mat4{};
-        model = glm::translate(model, glm::vec3(0.0f, 1.0f, 0.0f));
-        modelShader.SetMat4("model", model);
         cube.Draw(modelShader);
-
-        model = glm::mat4{};
-        model = glm::translate(model, glm::vec3(0.5f, 0.6f, 2.0f));
-        model = glm::scale(model, glm::vec3(0.25f));
-        modelShader.SetMat4("model", model);
         hero.Draw(modelShader);
 
         glBindVertexArray(0);
 
         textRenderer.Draw(std::to_string(fps), glm::vec2(25.0f, 565.0f), glm::vec3(0.5f, 0.8f, 0.2f));
+
         glfwSwapBuffers(window);
     }
 
