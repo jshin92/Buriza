@@ -26,6 +26,11 @@ void Model::Draw(const Shader& shader) const
     }
 }
 
+BoundingBox Model::GetBounds() const
+{
+    return m_bounds;
+}
+
 void Model::LoadModel(const std::string& path)
 {
     Assimp::Importer importer{};
@@ -67,6 +72,9 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         // process vertex positions
         glm::vec3 vector{mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z};
         vertex.Position = vector;
+
+        if (!m_bounds.minY.has_value() || vector.y < m_bounds.minY.value()) m_bounds.minY = vector.y;
+        if (!m_bounds.maxY.has_value() || vector.y > m_bounds.maxY.value()) m_bounds.maxY = vector.y;
 
         // normals
         vector.x = mesh->mNormals[i].x;

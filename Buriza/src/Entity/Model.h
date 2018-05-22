@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <vector>
 #include <ASSIMP/material.h>
 #include "Mesh.h"
@@ -9,12 +10,19 @@ struct aiMesh;
 struct aiNode;
 struct aiScene;
 
+struct BoundingBox
+{
+    std::optional<GLfloat> minY;
+    std::optional<GLfloat> maxY;
+};
+
 class Model
 {
 public:
     Model(const char* path);
     void Draw(const Shader& shader) const;
     virtual ~Model() = default;
+    BoundingBox GetBounds() const;
 
 private:
     void LoadModel(const std::string& path);
@@ -25,5 +33,7 @@ private:
     std::vector<Mesh> m_meshes;
     std::string m_directory;
     std::vector<aiString> m_loadedTextures;
+
+    BoundingBox m_bounds;
 };
 

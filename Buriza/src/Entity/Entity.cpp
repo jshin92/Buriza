@@ -1,6 +1,5 @@
 #include "Entity.h"
 
-
 Entity::Entity(const std::string& modelPath, const glm::vec3& position, GLfloat scale)
     : m_modelData(modelPath.c_str())
 {
@@ -14,4 +13,3 @@ void Entity::Draw(const Shader& shader)
     shader.SetMat4("model", m_model);
     m_modelData.Draw(shader);
 }
-
