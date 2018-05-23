@@ -6,6 +6,9 @@
 #include <string>
 #include <GLM/gtc/type_ptr.hpp>
 
+Shader::Shader(const GLchar* path)
+    : Shader((std::string(path) + ".vs").c_str(), (std::string(path) + ".fs").c_str())
+{ }
 
 Shader::Shader(const GLchar* vertexPath, const GLchar* fragmentPath)
 {

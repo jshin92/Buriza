@@ -66,9 +66,9 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-    Shader quadShader("shaders/depthQuad.vs", "shaders/depthQuad.fs");
-    Shader simpleDepthShader("shaders/simpleDepthShader.vs", "shaders/simpleDepthShader.fs");
-    Shader modelShader("shaders/model_loading.vs", "shaders/model_loading.fs");
+    Shader quadShader("shaders/depthQuad");
+    Shader simpleDepthShader("shaders/simpleDepthShader");
+    Shader modelShader("shaders/model_loading");
     Entity cube("assets/cube_textured/cube_textured.obj", glm::vec3(0.0f, 1.0f, 0.0f));
     Entity plane("assets/plane.obj", glm::vec3(0.0f, 0.0f, 0.0f));
     Entity hero("assets/hero/hero.obj", glm::vec3(0.5f, 0.6f, 2.0f), 0.25f);
