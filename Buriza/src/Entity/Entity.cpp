@@ -8,6 +8,10 @@ Entity::Entity(const std::string& modelPath, const glm::vec3& position, GLfloat 
     m_model = glm::scale(m_model, glm::vec3(scale));
 }
 
+void Entity::Tick()
+{
+}
+
 void Entity::Draw(const Shader& shader)
 {
     shader.SetMat4("model", m_model);

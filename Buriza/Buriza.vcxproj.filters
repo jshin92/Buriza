@@ -99,6 +99,10 @@
     <None Include="shaders\single_color.fs" />
     <None Include="shaders\text.fs" />
     <None Include="shaders\text.vs" />
+    <None Include="shaders\simpleDepthShader.fs" />
+    <None Include="shaders\simpleDepthShader.vs" />
+    <None Include="shaders\depthQuad.fs" />
+    <None Include="shaders\depthQuad.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

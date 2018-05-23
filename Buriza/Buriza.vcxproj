@@ -152,12 +152,16 @@
     <None Include="assets\nanosuit\nanosuit.mtl" />
     <None Include="shaders\basic_lighting.fs" />
     <None Include="shaders\basic_lighting.vs" />
+    <None Include="shaders\depthQuad.fs" />
+    <None Include="shaders\depthQuad.vs" />
     <None Include="shaders\lamp.fs" />
     <None Include="shaders\linear_depth.fs" />
     <None Include="shaders\model_loading.fs" />
     <None Include="shaders\model_loading.vs" />
     <None Include="shaders\shader.fs" />
     <None Include="shaders\shader.vs" />
+    <None Include="shaders\simpleDepthShader.fs" />
+    <None Include="shaders\simpleDepthShader.vs" />
     <None Include="shaders\single_color.fs" />
     <None Include="shaders\text.fs" />
     <None Include="shaders\text.vs" />
