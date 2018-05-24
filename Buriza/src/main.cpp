@@ -69,6 +69,8 @@ int main()
     Shader quadShader("shaders/depthQuad");
     Shader simpleDepthShader("shaders/simpleDepthShader");
     Shader modelShader("shaders/model_loading");
+    Shader shadowShader("shaders/shadow");
+
     Entity cube("assets/cube_textured/cube_textured.obj", glm::vec3(0.0f, 1.0f, 0.0f));
     Entity plane("assets/plane.obj", glm::vec3(0.0f, 0.0f, 0.0f));
     Entity hero("assets/hero/hero.obj", glm::vec3(0.5f, 0.6f, 2.0f), 0.25f);
@@ -152,6 +154,7 @@ int main()
         cube.Draw(simpleDepthShader);
         hero.Draw(simpleDepthShader);
 
+        /*
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -159,25 +162,31 @@ int main()
         glBindVertexArray(quadVAO);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        /* then render the scene *
+        */
+        // then render the scene 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // configure shaders and matrices
         glBindTexture(GL_TEXTURE_2D, depthMap);
         // render the scene
-
         glm::mat4 view = camera.GetViewMatrix();
         glm::mat4 projection = glm::perspective(glm::radians(camera.GetFOV()), (float)width / height, 0.1f, 100.0f);
 
-        modelShader.Use();
-        modelShader.SetMat4("view", view);
-        modelShader.SetMat4("projection", projection);
+        shadowShader.Use();
+        shadowShader.SetMat4("view", view);
+        shadowShader.SetMat4("projection", projection);
+        shadowShader.SetMat4("lightSpaceMatrix", lightSpaceMatrix);
+        shadowShader.SetVec3("viewPos", camera.GetPosition());
+        shadowShader.SetVec3("lightPos", glm::vec3(-2.0f, 4.0f, -1.0f));
+        shadowShader.SetInt("diffuseTexture", 0);
+        shadowShader.SetInt("shadowMap", 1);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, depthMap);
 
-        plane.Draw(modelShader);
-        cube.Draw(modelShader);
-        hero.Draw(modelShader);*/
+        plane.Draw(shadowShader);
+        cube.Draw(shadowShader);
+        hero.Draw(shadowShader);
 
         glBindVertexArray(0);
 

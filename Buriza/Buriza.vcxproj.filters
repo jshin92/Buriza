@@ -103,6 +103,8 @@
     <None Include="shaders\simpleDepthShader.vs" />
     <None Include="shaders\depthQuad.fs" />
     <None Include="shaders\depthQuad.vs" />
+    <None Include="shaders\shadow.fs" />
+    <None Include="shaders\shadow.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">
