@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Render\ShadowPass.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Model.cpp" />
     <ClCompile Include="src\Entity\Mesh.cpp" />
@@ -139,6 +140,8 @@
     <ClInclude Include="3rdParty\include\GL\glew.h" />
     <ClInclude Include="3rdParty\include\GL\glxew.h" />
     <ClInclude Include="3rdParty\include\GL\wglew.h" />
+    <ClInclude Include="src\Render\ShadowPass.h" />
+    <ClInclude Include="src\Render\IRenderPass.h" />
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\Model.h" />
     <ClInclude Include="src\Entity\Mesh.h" />
