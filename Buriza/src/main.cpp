@@ -14,6 +14,7 @@
 #include "Util/Shader.h"
 #include "Util/TextRenderer.h"
 #include "Render/ShadowPass.h"
+#include "Render/DefaultPass.h"
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -79,6 +80,7 @@ int main()
     TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "shaders/text.vs", "shaders/text.fs"};
 
     ShadowPass shadowPass{simpleDepthShader};
+    DefaultPass defaultPass{shadowShader, camera};
 
     while (!glfwWindowShouldClose(window))
     {
@@ -94,34 +96,12 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        auto shadowOutput = shadowPass.Run();
-        // render scene
+        RenderPassOutput shadowOutput = shadowPass.Run({});
         plane.Draw(simpleDepthShader);
         cube.Draw(simpleDepthShader);
         hero.Draw(simpleDepthShader);
 
-        /* then render the scene */
-        glCullFace(GL_BACK);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // configure shaders and matrices
-        glBindTexture(GL_TEXTURE_2D, shadowOutput.depthMapTexture);
-        // render the scene
-        glm::mat4 view = camera.GetViewMatrix();
-        glm::mat4 projection = glm::perspective(glm::radians(camera.GetFOV()), (float)width / height, 0.1f, 100.0f);
-
-        shadowShader.Use();
-        shadowShader.SetMat4("view", view);
-        shadowShader.SetMat4("projection", projection);
-        shadowShader.SetMat4("lightSpaceMatrix", shadowOutput.lightSpaceMatrix);
-        shadowShader.SetVec3("viewPos", camera.GetPosition());
-        shadowShader.SetVec3("lightPos", glm::vec3(-2.0f, 4.0f, -1.0f));
-        shadowShader.SetInt("diffuseTexture", 0);
-        shadowShader.SetInt("shadowMap", 1);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, shadowOutput.depthMapTexture);
-
+        defaultPass.Run(shadowOutput);
         plane.Draw(shadowShader);
         cube.Draw(shadowShader);
         hero.Draw(shadowShader);

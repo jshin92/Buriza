@@ -6,7 +6,7 @@ class ShadowPass : public IRenderPass
 {
 public:
     ShadowPass(Shader& shader);
-    RenderPassOutput Run() override;
+    RenderPassOutput Run(std::optional<RenderPassOutput> previousPassOutput) override;
     ~ShadowPass() = default;
 
 private:

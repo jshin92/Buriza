@@ -29,7 +29,7 @@ ShadowPass::ShadowPass(Shader& shader)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-RenderPassOutput ShadowPass::Run()
+RenderPassOutput ShadowPass::Run(std::optional<RenderPassOutput>)
 {
     /* first render to depth map */
     glCullFace(GL_FRONT);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <GLM/glm.hpp>
 #include "../Util/Shader.h"
 
@@ -15,7 +16,7 @@ public:
     IRenderPass(Shader& shader)
         : m_shader(shader) 
     {}
-    virtual RenderPassOutput Run() = 0;
+    virtual RenderPassOutput Run(std::optional<RenderPassOutput> previousPassOutput) = 0;
     virtual ~IRenderPass() = default;
 
 protected:
