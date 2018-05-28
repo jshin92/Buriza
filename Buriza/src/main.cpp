@@ -76,6 +76,8 @@ int main()
     Entity cube("assets/cube_textured/cube_textured.obj", glm::vec3(0.0f, 1.0f, 0.0f));
     Entity plane("assets/plane.obj", glm::vec3(0.0f, 0.0f, 0.0f), 4.0f);
     Entity hero("assets/hero/hero.obj", glm::vec3(0.5f, 0.6f, 2.0f), 0.25f);
+    Entity scourgeAncient("assets/scourge_ancient/scourge_ancient.obj", glm::vec3(-10.0f, 0.0f, 10.0f), 0.5f);
+    Entity sentinelAncient("assets/scourge_ancient/scourge_ancient.obj", glm::vec3(10.0f, 0.0f, -10.0f), 0.5f);
 
     TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "shaders/text.vs", "shaders/text.fs"};
 
@@ -100,12 +102,15 @@ int main()
         plane.Draw(simpleDepthShader);
         cube.Draw(simpleDepthShader);
         hero.Draw(simpleDepthShader);
+        scourgeAncient.Draw(simpleDepthShader);
+        sentinelAncient.Draw(simpleDepthShader);
 
         defaultPass.Run(shadowOutput);
         plane.Draw(shadowShader);
         cube.Draw(shadowShader);
         hero.Draw(shadowShader);
-
+        scourgeAncient.Draw(shadowShader);
+        sentinelAncient.Draw(shadowShader);
         glBindVertexArray(0);
 
         textRenderer.Draw(std::to_string(fps), glm::vec2(25.0f, 565.0f), glm::vec3(0.5f, 0.8f, 0.2f));

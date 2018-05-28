@@ -3,7 +3,7 @@
 
 #include "Camera.h"
 
-constexpr GLfloat DEFAULT_SPEED = 2.5f;
+constexpr GLfloat DEFAULT_SPEED = 10.5f;
 constexpr GLfloat DEFAULT_FOV = 45.0f;
 constexpr GLfloat DEFAULT_SENSITIVITY = 0.05f;
 
