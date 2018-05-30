@@ -3,7 +3,7 @@
 #include <iostream>
 #include <STB/stb_image.h>
 
-CursorPass::CursorPass(Shader& shader)
+CursorPass::CursorPass(Shader& shader, GLfloat scale)
     : IRenderPass(shader)
 {
     glGenTextures(1, &m_texture);
@@ -27,12 +27,12 @@ CursorPass::CursorPass(Shader& shader)
     stbi_image_free(data);
 
     GLfloat vertices[]{
-         0.5f,  0.5f, 0.0f, 1.0f, 1.0f, // top right
-        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, // top left
-         0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
-        -0.5f,  0.5f, 0.0f, 0.0f, 1.0f, // top left
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
-         0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
+         scale,  scale, 0.0f, 1.0f, 1.0f, // top right
+        -scale,  scale, 0.0f, 0.0f, 1.0f, // top left
+         scale, -scale, 0.0f, 1.0f, 0.0f, // bottom right
+        -scale,  scale, 0.0f, 0.0f, 1.0f, // top left
+        -scale, -scale, 0.0f, 0.0f, 0.0f, // bottom left
+         scale, -scale, 0.0f, 1.0f, 0.0f, // bottom right
     };
 
     glGenVertexArrays(1, &m_vao);

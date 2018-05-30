@@ -88,7 +88,7 @@ int main()
 
     ShadowPass shadowPass{simpleDepthShader};
     DefaultPass defaultPass{shadowShader, camera};
-    CursorPass cursorPass{cursorShader};
+    CursorPass cursorPass{cursorShader, 0.05f};
 
     while (!glfwWindowShouldClose(window))
     {
