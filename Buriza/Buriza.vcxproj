@@ -172,9 +172,12 @@
     <None Include="shaders\single_color.fs" />
     <None Include="shaders\text.fs" />
     <None Include="shaders\text.vs" />
+    <None Include="shaders\texture.fs" />
+    <None Include="shaders\texture.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg" />
+    <Image Include="assets\cursor\cursor.png" />
     <Image Include="assets\nanosuit\arm_dif.png" />
     <Image Include="assets\nanosuit\arm_showroom_ddn.png" />
     <Image Include="assets\nanosuit\arm_showroom_spec.png" />

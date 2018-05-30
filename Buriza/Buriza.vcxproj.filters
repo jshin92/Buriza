@@ -120,6 +120,8 @@
     <None Include="shaders\depthQuad.vs" />
     <None Include="shaders\shadow.fs" />
     <None Include="shaders\shadow.vs" />
+    <None Include="shaders\texture.fs" />
+    <None Include="shaders\texture.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">
@@ -174,6 +176,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\nanosuit\leg_showroom_spec.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\cursor\cursor.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
