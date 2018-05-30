@@ -45,6 +45,9 @@
     <ClCompile Include="src\Render\DefaultPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Render\CursorPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="3rdParty\lib\glfw3.lib" />
@@ -97,6 +100,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Render\DefaultPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Render\CursorPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

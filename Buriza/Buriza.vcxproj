@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Render\CursorPass.cpp" />
     <ClCompile Include="src\Render\DefaultPass.cpp" />
     <ClCompile Include="src\Render\ShadowPass.cpp" />
     <ClCompile Include="src\Entity\Entity.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="3rdParty\include\GL\glew.h" />
     <ClInclude Include="3rdParty\include\GL\glxew.h" />
     <ClInclude Include="3rdParty\include\GL\wglew.h" />
+    <ClInclude Include="src\Render\CursorPass.h" />
     <ClInclude Include="src\Render\DefaultPass.h" />
     <ClInclude Include="src\Render\ShadowPass.h" />
     <ClInclude Include="src\Render\IRenderPass.h" />
