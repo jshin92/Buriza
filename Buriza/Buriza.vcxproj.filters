@@ -39,13 +39,13 @@
     <ClCompile Include="src\Entity\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Render\ShadowPass.cpp">
+    <ClCompile Include="src\RenderPass\CursorPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Render\DefaultPass.cpp">
+    <ClCompile Include="src\RenderPass\DefaultPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Render\CursorPass.cpp">
+    <ClCompile Include="src\RenderPass\ShadowPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,41 +93,41 @@
     <ClInclude Include="src\Util\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Render\ShadowPass.h">
+    <ClInclude Include="src\RenderPass\CursorPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Render\IRenderPass.h">
+    <ClInclude Include="src\RenderPass\DefaultPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Render\DefaultPass.h">
+    <ClInclude Include="src\RenderPass\IRenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Render\CursorPass.h">
+    <ClInclude Include="src\RenderPass\ShadowPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\nanosuit\nanosuit.mtl" />
     <None Include="assets\nanosuit\nanosuit.blend" />
-    <None Include="shaders\basic_lighting.fs" />
-    <None Include="shaders\basic_lighting.vs" />
-    <None Include="shaders\lamp.fs" />
-    <None Include="shaders\linear_depth.fs" />
     <None Include="shaders\model_loading.fs" />
     <None Include="shaders\model_loading.vs" />
-    <None Include="shaders\shader.fs" />
-    <None Include="shaders\shader.vs" />
-    <None Include="shaders\single_color.fs" />
     <None Include="shaders\text.fs" />
     <None Include="shaders\text.vs" />
     <None Include="shaders\simpleDepthShader.fs" />
     <None Include="shaders\simpleDepthShader.vs" />
-    <None Include="shaders\depthQuad.fs" />
-    <None Include="shaders\depthQuad.vs" />
     <None Include="shaders\shadow.fs" />
     <None Include="shaders\shadow.vs" />
     <None Include="shaders\texture.fs" />
     <None Include="shaders\texture.vs" />
+    <None Include="shaders\old\basic_lighting.fs" />
+    <None Include="shaders\old\basic_lighting.vs" />
+    <None Include="shaders\old\linear_depth.fs" />
+    <None Include="shaders\old\depthQuad.fs" />
+    <None Include="shaders\old\depthQuad.vs" />
+    <None Include="shaders\old\lamp.fs" />
+    <None Include="shaders\old\shader.fs" />
+    <None Include="shaders\old\shader.vs" />
+    <None Include="shaders\old\single_color.fs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

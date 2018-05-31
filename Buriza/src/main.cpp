@@ -13,9 +13,9 @@
 #include "Util/Input.h"
 #include "Util/Shader.h"
 #include "Util/TextRenderer.h"
-#include "Render/CursorPass.h"
-#include "Render/DefaultPass.h"
-#include "Render/ShadowPass.h"
+#include "RenderPass/CursorPass.h"
+#include "RenderPass/DefaultPass.h"
+#include "RenderPass/ShadowPass.h"
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -144,8 +144,8 @@ void ProcessInput(GLFWwindow* window)
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
     std::cout << "[" << xpos << ", " << ypos << "]" << std::endl;
-    x = xpos;
-    y = 800 - ypos;
+    x = static_cast<int>(xpos);
+    y = static_cast<int>(800 - ypos);
     if (firstMouse)
     {
         lastX = xpos;
