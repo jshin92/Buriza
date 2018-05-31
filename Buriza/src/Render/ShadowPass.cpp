@@ -29,7 +29,7 @@ ShadowPass::ShadowPass(Shader& shader)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-RenderPassOutput ShadowPass::Run(std::optional<RenderPassOutput>)
+IRenderPassOutput ShadowPass::Run(std::optional<IRenderPassOutput>)
 {
     /* first render to depth map */
     glCullFace(GL_FRONT);
@@ -45,7 +45,8 @@ RenderPassOutput ShadowPass::Run(std::optional<RenderPassOutput>)
     glm::mat4 lightSpaceMatrix = lightProjection * lightView;
     m_shader.Use();
     m_shader.SetMat4("lightSpaceMatrix", lightSpaceMatrix);
-    return
+
+    return ShadowPassOutput
     {
         m_depthMapTexture,
         lightSpaceMatrix

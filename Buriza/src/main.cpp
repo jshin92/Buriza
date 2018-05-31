@@ -88,7 +88,7 @@ int main()
 
     ShadowPass shadowPass{simpleDepthShader};
     DefaultPass defaultPass{shadowShader, camera};
-    CursorPass cursorPass{cursorShader, 0.05f};
+    CursorPass cursorPass{cursorShader, 30.0f};
 
     while (!glfwWindowShouldClose(window))
     {
@@ -106,7 +106,7 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        RenderPassOutput shadowOutput = shadowPass.Run({});
+        auto shadowOutput = std::get<ShadowPassOutput>(shadowPass.Run({}));
         plane.Draw(simpleDepthShader);
         cube.Draw(simpleDepthShader);
         hero.Draw(simpleDepthShader);
@@ -121,10 +121,9 @@ int main()
         sentinelAncient.Draw(shadowShader);
         glBindVertexArray(0);
 
-        cursorPass.Run({});
+        cursorPass.Run(CursorPassInput{x, y});
 
         textRenderer.Draw(std::to_string(fps), glm::vec2(25.0f, 565.0f), glm::vec3(0.5f, 0.8f, 0.2f));
-        textRenderer.Draw("A", glm::vec2(x, y), glm::vec3(0.8f, 0.1f, 0.2f));
 
         glfwSwapBuffers(window);
     }

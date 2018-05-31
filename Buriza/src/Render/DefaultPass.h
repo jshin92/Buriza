@@ -7,7 +7,7 @@ class DefaultPass : IRenderPass
 {
 public:
     DefaultPass(Shader& shader, Camera& camera);
-    RenderPassOutput Run(std::optional<RenderPassOutput> previousPassOutput) override;
+    IRenderPassOutput Run(std::optional<IRenderPassOutput> previousPassOutput) override;
     ~DefaultPass() = default;
 
 private:

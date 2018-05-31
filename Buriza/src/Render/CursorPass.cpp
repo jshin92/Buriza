@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <STB/stb_image.h>
+#include <GLM/gtc/matrix_transform.hpp>
 
 CursorPass::CursorPass(Shader& shader, GLfloat scale)
     : IRenderPass(shader)
@@ -47,11 +48,22 @@ CursorPass::CursorPass(Shader& shader, GLfloat scale)
 
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
+
+    // todo: parameterize
+    int width = 800;
+    int height = 600;
+    m_ortho = glm::ortho(0.0f, width * 1.0f, 0.0f, height * 1.0f);
 }
 
-RenderPassOutput CursorPass::Run(std::optional<RenderPassOutput>)
+IRenderPassOutput CursorPass::Run(std::optional<IRenderPassOutput> cursorInput)
 {
+    auto coords = std::get<CursorPassInput>(*cursorInput);
     m_shader.Use();
+    m_shader.SetMat4("projection", m_ortho);
+    auto model = glm::mat4{};
+    model = glm::translate(model, glm::vec3(coords.x, coords.y, 0.0f));
+    m_shader.SetMat4("model", model);
+
     glBindTexture(GL_TEXTURE_2D, m_texture);
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);

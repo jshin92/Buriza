@@ -1,4 +1,5 @@
 #include "DefaultPass.h"
+#include "ShadowPass.h"
 #include <GLM/gtc/matrix_transform.hpp>
 
 DefaultPass::DefaultPass(Shader& shader, Camera& camera)
@@ -7,9 +8,9 @@ DefaultPass::DefaultPass(Shader& shader, Camera& camera)
 {
 }
 
-RenderPassOutput DefaultPass::Run(std::optional<RenderPassOutput> previousPassOutput)
+IRenderPassOutput DefaultPass::Run(std::optional<IRenderPassOutput> previousPassOutput)
 {
-    auto shadowOutput = *previousPassOutput;
+    auto shadowOutput = std::get<ShadowPassOutput>(*previousPassOutput);
     /* then render the scene normally, using the depthMap, which contains shadow information */
     glCullFace(GL_BACK);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
