@@ -4,13 +4,7 @@
 #include <ASSIMP/scene.h>
 #include <ASSIMP/postprocess.h>
 #include "Model.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include <STB/stb_image.h>
-
-namespace
-{
-    GLuint TextureFromFile(const char* path, const std::string& directory, bool gamma=false);
-}
+#include "../Util/TextureUtil.h"
 
 Model::Model(const char* path)
 {
@@ -129,7 +123,7 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType 
         if (std::find(m_loadedTextures.begin(), m_loadedTextures.end(), str) != m_loadedTextures.end()) continue;
 
         Texture texture;
-        texture.id = TextureFromFile(str.C_Str(), m_directory);
+        texture.id = TextureUtil::TextureFromFile(str.C_Str(), m_directory);
         texture.type = typeName;
         texture.path = str;
         textures.emplace_back(texture);
@@ -137,42 +131,4 @@ std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType 
         m_loadedTextures.emplace_back(str);
     }
     return textures;
-}
-
-namespace
-{
-    GLuint TextureFromFile(const char* path, const std::string& directory, bool gamma)
-    {
-        std::string filename = std::string(path);
-        filename = directory + '/' + filename;
-
-        GLuint textureID;
-        glGenTextures(1, &textureID);
-
-        GLint width, height, numComponents;
-        GLubyte* data = stbi_load(filename.c_str(), &width, &height, &numComponents, 0);
-        if (data)
-        {
-            GLenum format;
-            if (numComponents == 1) format = GL_RED;
-            else if (numComponents == 3) format = GL_RGB;
-            else if (numComponents == 4) format = GL_RGBA;
-            else std::cerr << "Unmatched numComponents: " << numComponents << std::endl;
-
-            glBindTexture(GL_TEXTURE_2D, textureID);
-            glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-            glGenerateMipmap(GL_TEXTURE_2D);
-
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        }
-        else
-        {
-            std::cerr << "Texture failed to load at path: " << path << std::endl;
-        }
-        stbi_image_free(data);
-        return textureID;
-    }
 }

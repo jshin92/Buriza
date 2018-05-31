@@ -130,6 +130,7 @@
     <ClCompile Include="src\Util\Shader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Util\TextRenderer.cpp" />
+    <ClCompile Include="src\Util\TextureUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="3rdParty\lib\glfw3.lib" />
@@ -153,6 +154,7 @@
     <ClInclude Include="src\Util\Input.h" />
     <ClInclude Include="src\Util\Shader.h" />
     <ClInclude Include="src\Util\TextRenderer.h" />
+    <ClInclude Include="src\Util\TextureUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\nanosuit\nanosuit.blend" />
