@@ -4,17 +4,14 @@
 #include <GLM/gtc/matrix_transform.hpp>
 
 
-ShadowPass::ShadowPass(Shader& shader)
-    : IRenderPass(shader)
+ShadowPass::ShadowPass(Shader& shader, int width, int height)
+    : IRenderPass(shader, width, height)
 {
     glGenFramebuffers(1, &m_depthMapFBO);
 
-    m_shadowWidth = 1024;
-    m_shadowHeight = 1024;
-
     glGenTextures(1, &m_depthMapTexture);
     glBindTexture(GL_TEXTURE_2D, m_depthMapTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_shadowWidth, m_shadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, m_width, m_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -33,7 +30,7 @@ IRenderPassOutput ShadowPass::Run(std::optional<IRenderPassOutput>)
 {
     /* first render to depth map */
     glCullFace(GL_FRONT);
-    glViewport(0, 0, m_shadowWidth, m_shadowHeight);
+    glViewport(0, 0, m_width, m_height);
     glBindFramebuffer(GL_FRAMEBUFFER, m_depthMapFBO);
     glClear(GL_DEPTH_BUFFER_BIT);
     // configure shader and matrices

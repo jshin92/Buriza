@@ -5,8 +5,8 @@
 #include <GLM/gtc/matrix_transform.hpp>
 #include "../Util/TextureUtil.h"
 
-CursorPass::CursorPass(Shader& shader, GLfloat scale)
-    : IRenderPass(shader)
+CursorPass::CursorPass(Shader& shader, int width, int height, GLfloat scale)
+    : IRenderPass(shader, width, height)
 {
     m_texture = TextureUtil::TextureFromFile("assets/cursor/cursor.png", []
     {
@@ -38,10 +38,7 @@ CursorPass::CursorPass(Shader& shader, GLfloat scale)
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
-    // todo: parameterize
-    int width = 800;
-    int height = 600;
-    m_ortho = glm::ortho(0.0f, width * 1.0f, 0.0f, height * 1.0f);
+    m_ortho = glm::ortho(0.0f, m_width * 1.0f, 0.0f, m_height * 1.0f);
 }
 
 IRenderPassOutput CursorPass::Run(std::optional<IRenderPassOutput> cursorInput)

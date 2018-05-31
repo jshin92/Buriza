@@ -21,6 +21,8 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void ProcessInput(GLFWwindow* window);
 
+constexpr int SHADOW_MAP_WIDTH = 1024;
+constexpr int SHADOW_MAP_HEIGHT = 1024;
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;
 double lastX = SCREEN_WIDTH / 2;
@@ -86,9 +88,9 @@ int main()
 
     TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "shaders/text.vs", "shaders/text.fs"};
 
-    ShadowPass shadowPass{simpleDepthShader};
-    DefaultPass defaultPass{shadowShader, camera};
-    CursorPass cursorPass{cursorShader, 30.0f};
+    ShadowPass shadowPass{simpleDepthShader, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT};
+    DefaultPass defaultPass{shadowShader, SCREEN_WIDTH, SCREEN_HEIGHT, camera};
+    CursorPass cursorPass{cursorShader, SCREEN_WIDTH, SCREEN_HEIGHT, 30.0f};
 
     while (!glfwWindowShouldClose(window))
     {

@@ -2,8 +2,8 @@
 #include "ShadowPass.h"
 #include <GLM/gtc/matrix_transform.hpp>
 
-DefaultPass::DefaultPass(Shader& shader, Camera& camera)
-    : IRenderPass(shader)
+DefaultPass::DefaultPass(Shader& shader, int width, int height, Camera& camera)
+    : IRenderPass(shader, width, height)
     , m_camera(camera)
 {
 }
@@ -14,16 +14,13 @@ IRenderPassOutput DefaultPass::Run(std::optional<IRenderPassOutput> previousPass
     /* then render the scene normally, using the depthMap, which contains shadow information */
     glCullFace(GL_BACK);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    // TODO: parameterize SCREEN_WIDTH and SCREEN_HEIGHT
-    GLuint width = 800;
-    GLuint height = 600;
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, m_width, m_height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // configure shaders and matrices
     glBindTexture(GL_TEXTURE_2D, shadowOutput.depthMapTexture);
     // render the scene
     glm::mat4 view = m_camera.GetViewMatrix();
-    glm::mat4 projection = glm::perspective(glm::radians(m_camera.GetFOV()), (float)width / height, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(m_camera.GetFOV()), (float)m_width / m_height, 0.1f, 100.0f);
 
     m_shader.Use();
     m_shader.SetMat4("view", view);

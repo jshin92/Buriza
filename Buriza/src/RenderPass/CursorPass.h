@@ -5,7 +5,7 @@
 class CursorPass : public IRenderPass
 {
 public:
-    CursorPass(Shader& shader, GLfloat scale);
+    CursorPass(Shader& shader, int width, int height, GLfloat scale);
     IRenderPassOutput Run(std::optional<IRenderPassOutput>);
     ~CursorPass() = default;
 
