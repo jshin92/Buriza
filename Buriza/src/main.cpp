@@ -36,6 +36,8 @@ bool firstMouse = true;
 int x = 0;
 int y = 0;
 
+bool isWireframe = false;
+
 int main()
 {
     std::cout << "Initializing Buriza..." << std::endl;
@@ -138,9 +140,15 @@ void ProcessInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    const auto& keyState = Input::GetKeyState();
+    if (Input::GetDiscreteKeyPressState()[GLFW_KEY_GRAVE_ACCENT])
+    {
+        isWireframe ? glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) : glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        isWireframe = !isWireframe;
+    }
 
-    camera.ProcessDirection(keyState, deltaTime);
+    camera.ProcessDirection(Input::GetKeyState(), deltaTime);
+
+    Input::ResetDiscreteKeyPresses();
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
