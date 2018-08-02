@@ -14,5 +14,5 @@ public:
 
 private:
     static bool m_keys[MAX_INPUT_SIZE];
-    static bool m_DiscreetlyPressedKeys[MAX_INPUT_SIZE];
+    static bool m_discreetlyPressedKeys[MAX_INPUT_SIZE];
 };

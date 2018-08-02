@@ -4,11 +4,11 @@
 #include "Input.h"
 
 bool Input::m_keys[MAX_INPUT_SIZE]{};
-bool Input::m_DiscreetlyPressedKeys[MAX_INPUT_SIZE]{};
+bool Input::m_discreetlyPressedKeys[MAX_INPUT_SIZE]{};
 
 void Input::ResetDiscreteKeyPresses()
 {
-    std::fill(m_DiscreetlyPressedKeys, m_DiscreetlyPressedKeys + MAX_INPUT_SIZE, false);
+    std::fill(m_discreetlyPressedKeys, m_discreetlyPressedKeys + MAX_INPUT_SIZE, false);
 }
 
 void Input::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
@@ -21,7 +21,7 @@ void Input::KeyCallback(GLFWwindow* window, int key, int scancode, int action, i
     if (action == GLFW_PRESS) m_keys[key] = true;
     else if (action == GLFW_RELEASE)
     {
-        if (m_keys[key]) m_DiscreetlyPressedKeys[key] = true;
+        if (m_keys[key]) m_discreetlyPressedKeys[key] = true;
         m_keys[key] = false;
     }
 }
@@ -33,6 +33,6 @@ auto Input::GetKeyState() -> const bool (&)[MAX_INPUT_SIZE]
 
 auto Input::GetDiscreteKeyPressState() -> const bool (&)[MAX_INPUT_SIZE]
 {
-    return m_DiscreetlyPressedKeys;
+    return m_discreetlyPressedKeys;
 }
 
