@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\RenderPass\ConsolePass.cpp" />
     <ClCompile Include="src\RenderPass\CursorPass.cpp" />
     <ClCompile Include="src\RenderPass\DefaultPass.cpp" />
     <ClCompile Include="src\RenderPass\ShadowPass.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="3rdParty\include\GL\glew.h" />
     <ClInclude Include="3rdParty\include\GL\glxew.h" />
     <ClInclude Include="3rdParty\include\GL\wglew.h" />
+    <ClInclude Include="src\RenderPass\ConsolePass.h" />
     <ClInclude Include="src\RenderPass\CursorPass.h" />
     <ClInclude Include="src\RenderPass\DefaultPass.h" />
     <ClInclude Include="src\RenderPass\ShadowPass.h" />
@@ -159,6 +161,8 @@
   <ItemGroup>
     <None Include="assets\nanosuit\nanosuit.blend" />
     <None Include="assets\nanosuit\nanosuit.mtl" />
+    <None Include="shaders\console.fs" />
+    <None Include="shaders\console.vs" />
     <None Include="shaders\old\basic_lighting.fs" />
     <None Include="shaders\old\basic_lighting.vs" />
     <None Include="shaders\old\depthQuad.fs" />

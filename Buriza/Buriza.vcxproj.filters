@@ -51,6 +51,9 @@
     <ClCompile Include="src\Util\TextureUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderPass\ConsolePass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="3rdParty\lib\glfw3.lib" />
@@ -111,6 +114,9 @@
     <ClInclude Include="src\Util\TextureUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\RenderPass\ConsolePass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\nanosuit\nanosuit.mtl" />
@@ -134,6 +140,8 @@
     <None Include="shaders\old\shader.fs" />
     <None Include="shaders\old\shader.vs" />
     <None Include="shaders\old\single_color.fs" />
+    <None Include="shaders\console.fs" />
+    <None Include="shaders\console.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

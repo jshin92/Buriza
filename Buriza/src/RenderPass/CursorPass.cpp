@@ -5,7 +5,7 @@
 #include <GLM/gtc/matrix_transform.hpp>
 #include "../Util/TextureUtil.h"
 
-CursorPass::CursorPass(Shader& shader, int width, int height, GLfloat scale)
+CursorPass::CursorPass(Shader& shader, GLint width, GLint height, GLfloat scale)
     : IRenderPass(shader, width, height)
 {
     m_texture = TextureUtil::TextureFromFile("assets/cursor/cursor.png", []
@@ -16,7 +16,8 @@ CursorPass::CursorPass(Shader& shader, int width, int height, GLfloat scale)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     });
 
-    GLfloat vertices[]{
+    GLfloat vertices[]
+    {
          scale,  scale, 0.0f, 1.0f, 1.0f, // top right
         -scale,  scale, 0.0f, 0.0f, 1.0f, // top left
          scale, -scale, 0.0f, 1.0f, 0.0f, // bottom right

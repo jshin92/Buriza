@@ -13,6 +13,7 @@
 #include "Util/Input.h"
 #include "Util/Shader.h"
 #include "Util/TextRenderer.h"
+#include "RenderPass/ConsolePass.h"
 #include "RenderPass/CursorPass.h"
 #include "RenderPass/DefaultPass.h"
 #include "RenderPass/ShadowPass.h"
@@ -37,6 +38,7 @@ int x = 0;
 int y = 0;
 
 bool isWireframe = false;
+bool isRenderingConsole = false;
 
 int main()
 {
@@ -77,10 +79,11 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-    Shader simpleDepthShader("shaders/simpleDepthShader");
+    Shader consoleShader("shaders/console");
+    Shader cursorShader("shaders/texture");
     Shader modelShader("shaders/model_loading");
     Shader shadowShader("shaders/shadow");
-    Shader cursorShader("shaders/texture");
+    Shader simpleDepthShader("shaders/simpleDepthShader");
 
     Entity cube("assets/cube_textured/cube_textured.obj", glm::vec3(0.0f, 1.0f, 0.0f));
     Entity plane("assets/plane.obj", glm::vec3(0.0f, 0.0f, 0.0f), 4.0f);
@@ -93,6 +96,7 @@ int main()
     ShadowPass shadowPass{simpleDepthShader, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT};
     DefaultPass defaultPass{shadowShader, SCREEN_WIDTH, SCREEN_HEIGHT, camera};
     CursorPass cursorPass{cursorShader, SCREEN_WIDTH, SCREEN_HEIGHT, 30.0f};
+    ConsolePass consolePass{consoleShader, SCREEN_WIDTH, SCREEN_HEIGHT};
 
     while (!glfwWindowShouldClose(window))
     {
@@ -125,6 +129,8 @@ int main()
         sentinelAncient.Draw(shadowShader);
         glBindVertexArray(0);
 
+        if (isRenderingConsole) consolePass.Run(ConsolePassInput{"sample text"});
+
         cursorPass.Run(CursorPassInput{x, y});
 
         textRenderer.Draw(std::to_string(fps), glm::vec2(25.0f, 565.0f), glm::vec3(0.5f, 0.8f, 0.2f));
@@ -142,8 +148,7 @@ void ProcessInput(GLFWwindow* window)
 
     if (Input::GetDiscreteKeyPressState()[GLFW_KEY_GRAVE_ACCENT])
     {
-        isWireframe ? glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) : glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        isWireframe = !isWireframe;
+        isRenderingConsole = !isRenderingConsole;
     }
 
     camera.ProcessDirection(Input::GetKeyState(), deltaTime);
@@ -153,7 +158,6 @@ void ProcessInput(GLFWwindow* window)
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
-    std::cout << "[" << xpos << ", " << ypos << "]" << std::endl;
     x = static_cast<int>(xpos);
     y = static_cast<int>(800 - ypos);
     if (firstMouse)

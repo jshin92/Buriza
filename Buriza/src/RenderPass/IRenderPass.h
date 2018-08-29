@@ -7,8 +7,9 @@
 
 struct ShadowPassOutput;
 struct CursorPassInput;
+struct ConsolePassInput;
 
-using IRenderPassOutput = std::variant<ShadowPassOutput, CursorPassInput>;
+using IRenderPassOutput = std::variant<ShadowPassOutput, CursorPassInput, ConsolePassInput>;
 
 class IRenderPass
 {
@@ -37,4 +38,9 @@ struct CursorPassInput
 {
     int x;
     int y;
+};
+
+struct ConsolePassInput
+{
+    std::string text;
 };

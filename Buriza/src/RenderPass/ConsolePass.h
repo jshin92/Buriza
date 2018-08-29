@@ -1,16 +1,14 @@
 #pragma once
-
 #include "IRenderPass.h"
 
-class CursorPass : public IRenderPass
+class ConsolePass : public IRenderPass
 {
 public:
-    CursorPass(Shader& shader, GLint width, GLint height, GLfloat scale);
+    ConsolePass(Shader& shader, GLint width, GLint height);
     IRenderPassOutput Run(std::optional<IRenderPassOutput>);
-    ~CursorPass() = default;
+    ~ConsolePass() = default;
 
 private:
-    GLuint m_texture;
     GLuint m_vao;
     GLuint m_vbo;
     glm::mat4 m_ortho;
