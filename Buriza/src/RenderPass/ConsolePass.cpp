@@ -2,17 +2,17 @@
 #include <GLM/gtc/matrix_transform.hpp>
 #include <iostream>
 
-ConsolePass::ConsolePass(Shader& shader, GLint width, GLint height)
+ConsolePass::ConsolePass(Shader& shader, GLint width, GLint height, GLint consoleWidth, GLint consoleHeight)
     : IRenderPass(shader, width, height)
 {
     GLfloat vertices[]
     {
-        -0.5f, -0.5f,
-        0.5f, 0.5f,
-        -0.5f, 0.5f,
-        -0.5f, -0.5f,
-        0.5f, -0.5f,
-        0.5f, 0.5f
+        0.0f, 0.f,
+        consoleWidth, consoleHeight,
+        0.0f, consoleHeight,
+        0.0f, 0.0f,
+        consoleWidth, 0.0f,
+        consoleWidth, consoleHeight
     };
 
     glGenVertexArrays(1, &m_vao);
@@ -26,14 +26,15 @@ ConsolePass::ConsolePass(Shader& shader, GLint width, GLint height)
     glEnableVertexAttribArray(0);
 
     m_ortho = glm::ortho(0.0f, m_width * 1.0f, 0.0f, m_height * 1.0f);
-    m_model = glm::mat4{};
+    m_model = glm::translate(m_model, glm::vec3(0, m_height - consoleHeight, 0));
 }
 
 IRenderPassOutput ConsolePass::Run(std::optional<IRenderPassOutput> consoleInput)
 {
     auto input = std::get<ConsolePassInput>(*consoleInput);
     m_shader.Use();
-    //m_shader.SetMat4("projection", m_ortho);
+    m_shader.SetMat4("projection", m_ortho);
+    m_shader.SetMat4("model", m_model);
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     return {};

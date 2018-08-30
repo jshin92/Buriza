@@ -4,7 +4,7 @@
 class ConsolePass : public IRenderPass
 {
 public:
-    ConsolePass(Shader& shader, GLint width, GLint height);
+    ConsolePass(Shader& shader, GLint windowWidth, GLint windowHeight, GLint consoleWidth, GLint consoleHeight);
     IRenderPassOutput Run(std::optional<IRenderPassOutput>);
     ~ConsolePass() = default;
 

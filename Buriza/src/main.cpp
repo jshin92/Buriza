@@ -96,7 +96,7 @@ int main()
     ShadowPass shadowPass{simpleDepthShader, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT};
     DefaultPass defaultPass{shadowShader, SCREEN_WIDTH, SCREEN_HEIGHT, camera};
     CursorPass cursorPass{cursorShader, SCREEN_WIDTH, SCREEN_HEIGHT, 30.0f};
-    ConsolePass consolePass{consoleShader, SCREEN_WIDTH, SCREEN_HEIGHT};
+    ConsolePass consolePass{consoleShader, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, 300};
 
     while (!glfwWindowShouldClose(window))
     {
