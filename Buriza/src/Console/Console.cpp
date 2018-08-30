@@ -47,14 +47,6 @@ void Console::ProcessChar(GLuint codepoint)
 
 void Console::ProcessKey()
 {
-}
-
-void Console::ListenForKeyPresses(bool isRenderingConsole)
-{
-    if (!isRenderingConsole) return;
-
     const auto& toggedKeys = Input::GetDiscreteKeyPressState();
-
-    // is pressed key char or number or enter?
     // Char | Number | Enter | Space
 }

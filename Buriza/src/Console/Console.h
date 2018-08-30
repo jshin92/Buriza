@@ -20,7 +20,6 @@ public:
     static void PushMessage(const std::string& msg, Severity sev=Severity::Info);
     static void ProcessChar(GLuint codepoint);
     static void ProcessKey();
-    static void ListenForKeyPresses(bool isRenderingConsole);
 
     Console(const Console&) = delete;
     Console(const Console&&) = delete;
