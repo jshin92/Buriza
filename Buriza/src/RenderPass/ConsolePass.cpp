@@ -7,9 +7,12 @@ ConsolePass::ConsolePass(Shader& shader, GLint width, GLint height)
 {
     GLfloat vertices[]
     {
-        -0.5f, 0.0f,
-        0.5f, -0.3f,
-        0.0f, 0.5f
+        -0.5f, -0.5f,
+        0.5f, 0.5f,
+        -0.5f, 0.5f,
+        -0.5f, -0.5f,
+        0.5f, -0.5f,
+        0.5f, 0.5f
     };
 
     glGenVertexArrays(1, &m_vao);
@@ -23,6 +26,7 @@ ConsolePass::ConsolePass(Shader& shader, GLint width, GLint height)
     glEnableVertexAttribArray(0);
 
     m_ortho = glm::ortho(0.0f, m_width * 1.0f, 0.0f, m_height * 1.0f);
+    m_model = glm::mat4{};
 }
 
 IRenderPassOutput ConsolePass::Run(std::optional<IRenderPassOutput> consoleInput)
@@ -31,6 +35,6 @@ IRenderPassOutput ConsolePass::Run(std::optional<IRenderPassOutput> consoleInput
     m_shader.Use();
     //m_shader.SetMat4("projection", m_ortho);
     glBindVertexArray(m_vao);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     return {};
 }
