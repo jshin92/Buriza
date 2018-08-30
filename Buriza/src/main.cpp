@@ -8,6 +8,7 @@
 #include <GLM/gtc/matrix_transform.hpp>
 
 #include "Camera.h"
+#include "Console/Console.h"
 #include "Entity/Entity.h"
 #include "Entity/Model.h"
 #include "Util/Input.h"
