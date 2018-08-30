@@ -214,4 +214,7 @@
   <ItemGroup>
     <Text Include="assets\nanosuit\LICENSE.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\fira.ttf" />
+  </ItemGroup>
 </Project>
