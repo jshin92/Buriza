@@ -40,5 +40,10 @@ IRenderPassOutput ConsolePass::Run(std::optional<IRenderPassOutput> consoleInput
     m_shader.SetMat4("model", m_model);
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    // render >
+    // enter "terminal mode, listen for key presses"
+    // listen for ENTER to accept prompt
+
     return {};
 }

@@ -21,6 +21,8 @@
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void char_callback(GLFWwindow* window, GLuint codepoint);
+
 void ProcessInput(GLFWwindow* window);
 
 constexpr int SHADOW_MAP_WIDTH = 1024;
@@ -77,6 +79,7 @@ int main()
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetKeyCallback(window, Input::KeyCallback);
+    glfwSetCharCallback(window, char_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
@@ -152,9 +155,10 @@ void ProcessInput(GLFWwindow* window)
     if (Input::GetDiscreteKeyPressState()[GLFW_KEY_GRAVE_ACCENT])
     {
         isRenderingConsole = !isRenderingConsole;
+
     }
 
-    camera.ProcessDirection(Input::GetKeyState(), deltaTime);
+    if (!isRenderingConsole) camera.ProcessDirection(Input::GetKeyState(), deltaTime);
 
     Input::ResetDiscreteKeyPresses();
 }
@@ -175,10 +179,16 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     lastX = xpos;
     lastY = ypos;
 
-    camera.ProcessMouseMovement(xoffset, yoffset);
+    if (!isRenderingConsole) camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     camera.ProcessMouseScroll(yoffset);
 }
+
+void char_callback(GLFWwindow* window, GLuint codepoint)
+{
+    if (isRenderingConsole) Console::ProcessChar(codepoint);
+}
+

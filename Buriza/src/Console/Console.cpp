@@ -1,6 +1,10 @@
 #include "Console.h"
+#include "../Util/Input.h"
+#include <iostream>
+#include <GLFW/glfw3.h>
 
 std::vector<std::string> Console::buffer{};
+std::string Console::currentExpression{};
 
 namespace
 {
@@ -34,4 +38,23 @@ const std::vector<std::string>& Console::GetBuffer()
 void Console::PushMessage(const std::string& msg, Severity sev)
 {
     buffer.emplace_back(SeverityToString(sev) + msg);
+}
+
+void Console::ProcessChar(GLuint codepoint)
+{
+    std::cout << codepoint << std::endl;
+}
+
+void Console::ProcessKey()
+{
+}
+
+void Console::ListenForKeyPresses(bool isRenderingConsole)
+{
+    if (!isRenderingConsole) return;
+
+    const auto& toggedKeys = Input::GetDiscreteKeyPressState();
+
+    // is pressed key char or number or enter?
+    // Char | Number | Enter | Space
 }

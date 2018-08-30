@@ -18,6 +18,9 @@ public:
     static Console& Get();
     static const std::vector<std::string>& GetBuffer();
     static void PushMessage(const std::string& msg, Severity sev=Severity::Info);
+    static void ProcessChar(GLuint codepoint);
+    static void ProcessKey();
+    static void ListenForKeyPresses(bool isRenderingConsole);
 
     Console(const Console&) = delete;
     Console(const Console&&) = delete;
@@ -26,6 +29,7 @@ public:
 
 private:
     static Console instance;
+    static std::string currentExpression;
 
     Console();
     virtual ~Console() = default;
