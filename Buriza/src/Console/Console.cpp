@@ -8,7 +8,7 @@ namespace
     {
         if (sev == Severity::Info) return "[INFO]: ";
         else if (sev == Severity::Warn) return "[WARN]: ";
-        else if (sev == Severity::Error) return "[ERRO]: ";
+        else if (sev == Severity::Error) return "[ERR]:  ";
         else return "[UNRECOGNIZED]: ";
     }
 }
@@ -24,6 +24,11 @@ Console& Console::Get()
 {
     static Console instance;
     return instance;
+}
+
+const std::vector<std::string>& Console::GetBuffer()
+{
+    return buffer;
 }
 
 void Console::PushMessage(const std::string& msg, Severity sev)

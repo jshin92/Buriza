@@ -16,6 +16,7 @@ class Console
 {
 public:
     static Console& Get();
+    static const std::vector<std::string>& GetBuffer();
     static void PushMessage(const std::string& msg, Severity sev=Severity::Info);
 
     Console(const Console&) = delete;

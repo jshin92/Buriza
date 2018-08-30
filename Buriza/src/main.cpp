@@ -99,6 +99,8 @@ int main()
     CursorPass cursorPass{cursorShader, SCREEN_WIDTH, SCREEN_HEIGHT, 30.0f};
     ConsolePass consolePass{consoleShader, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, 300};
 
+    Console::PushMessage("test");
+
     while (!glfwWindowShouldClose(window))
     {
         // Calculate deltatime of current frame

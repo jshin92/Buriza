@@ -1,4 +1,5 @@
 #include "ConsolePass.h"
+#include "../Console/Console.h"
 #include <GLM/gtc/matrix_transform.hpp>
 #include <iostream>
 
@@ -7,12 +8,12 @@ ConsolePass::ConsolePass(Shader& shader, GLint width, GLint height, GLint consol
 {
     GLfloat vertices[]
     {
-        0.0f, 0.f,
-        consoleWidth, consoleHeight,
-        0.0f, consoleHeight,
-        0.0f, 0.0f,
-        consoleWidth, 0.0f,
-        consoleWidth, consoleHeight
+        0.0f               , 0.f,
+        consoleWidth * 1.0f, consoleHeight * 1.0f,
+        0.0f               , consoleHeight * 1.0f,
+        0.0f               , 0.0f,
+        consoleWidth * 1.0f, 0.0f,
+        consoleWidth * 1.0f, consoleHeight * 1.0f
     };
 
     glGenVertexArrays(1, &m_vao);
@@ -31,6 +32,8 @@ ConsolePass::ConsolePass(Shader& shader, GLint width, GLint height, GLint consol
 
 IRenderPassOutput ConsolePass::Run(std::optional<IRenderPassOutput> consoleInput)
 {
+    const auto& buffer = Console::GetBuffer();
+
     auto input = std::get<ConsolePassInput>(*consoleInput);
     m_shader.Use();
     m_shader.SetMat4("projection", m_ortho);
