@@ -92,7 +92,7 @@ int main()
     Entity scourgeAncient("assets/scourge_ancient/scourge_ancient.obj", glm::vec3(-10.0f, 0.0f, 10.0f), 0.5f);
     Entity sentinelAncient("assets/scourge_ancient/scourge_ancient.obj", glm::vec3(10.0f, 0.0f, -10.0f), 0.5f);
 
-    TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/arial.ttf", "shaders/text.vs", "shaders/text.fs"};
+    TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/fira.ttf", "shaders/text.vs", "shaders/text.fs"};
 
     ShadowPass shadowPass{simpleDepthShader, SHADOW_MAP_WIDTH, SHADOW_MAP_HEIGHT};
     DefaultPass defaultPass{shadowShader, SCREEN_WIDTH, SCREEN_HEIGHT, camera};
