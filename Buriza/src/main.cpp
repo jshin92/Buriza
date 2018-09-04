@@ -140,6 +140,7 @@ int main()
         cursorPass.Run(CursorPassInput{x, y});
 
         textRenderer.Draw(std::to_string(fps), glm::vec2(25.0f, 565.0f), glm::vec3(0.5f, 0.8f, 0.2f));
+        textRenderer.Draw("hello world", glm::vec2(25.0f, 465.0f), glm::vec3(0.5f, 0.5f, 0.5f));
 
         glfwSwapBuffers(window);
     }
@@ -184,7 +185,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    camera.ProcessMouseScroll(yoffset);
+    if (!isRenderingConsole)  camera.ProcessMouseScroll(yoffset);
 }
 
 void char_callback(GLFWwindow* window, GLuint codepoint)
