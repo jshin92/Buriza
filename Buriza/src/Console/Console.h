@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "../Util/Input.h"
+
 enum class Severity
 {
     Info,
@@ -18,9 +20,11 @@ public:
     static Console& Instance();
 
     const std::vector<std::string>& GetBuffer() const;
+    const std::string& GetCurrentExpression() const;
+    const GLuint& GetRow() const;
     Console& PushMessage(const std::string& msg, Severity sev=Severity::Info);
     void ProcessChar(GLuint codepoint);
-    void ProcessKey();
+    void ProcessKey(const bool(&discreteKeys)[MAX_INPUT_SIZE]);
 
     Console(const Console&) = delete;
     Console(const Console&&) = delete;

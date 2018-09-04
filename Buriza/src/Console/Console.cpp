@@ -1,5 +1,4 @@
 #include "Console.h"
-#include "../Util/Input.h"
 #include <iostream>
 #include <GLFW/glfw3.h>
 
@@ -34,6 +33,16 @@ const std::vector<std::string>& Console::GetBuffer() const
     return m_buffer;
 }
 
+const std::string& Console::GetCurrentExpression() const
+{
+    return m_currentExpression;
+}
+
+const GLuint& Console::GetRow() const
+{
+    return m_row;
+}
+
 Console& Console::PushMessage(const std::string& msg, Severity sev)
 {
     m_buffer.emplace_back(SeverityToString(sev) + msg);
@@ -42,11 +51,17 @@ Console& Console::PushMessage(const std::string& msg, Severity sev)
 
 void Console::ProcessChar(GLuint codepoint)
 {
+    // ignore backticks, as that's how you open the console
+    if (codepoint == GLFW_KEY_GRAVE_ACCENT) return;
+
     std::cout << codepoint << std::endl;
+    m_currentExpression += (char)codepoint;
 }
 
-void Console::ProcessKey()
+void Console::ProcessKey(const bool(&discreteKeys)[MAX_INPUT_SIZE])
 {
-    const auto& toggedKeys = Input::GetDiscreteKeyPressState();
-    // Char | Number | Enter | Space
+    if (discreteKeys[GLFW_KEY_ENTER])
+    {
+        m_row++;
+    }
 }

@@ -6,6 +6,8 @@
 #include <GLM/glm.hpp>
 #include "../Util/Shader.h"
 
+class TextRenderer;
+
 struct ShadowPassOutput;
 struct CursorPassInput;
 struct ConsolePassInput;
@@ -43,5 +45,5 @@ struct CursorPassInput
 
 struct ConsolePassInput
 {
-    std::string text;
+    TextRenderer& textRenderer;
 };

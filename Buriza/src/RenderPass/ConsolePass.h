@@ -1,6 +1,10 @@
 #pragma once
 #include "IRenderPass.h"
 
+constexpr GLint BLOCKSIZE = 32;
+constexpr GLint LEFT_PAD = 32;
+constexpr GLint TOP_PAD = 32;
+
 class ConsolePass : public IRenderPass
 {
 public:
@@ -13,5 +17,7 @@ private:
     GLuint m_vbo;
     glm::mat4 m_ortho;
     glm::mat4 m_model;
+    GLint m_screenWidth;
+    GLint m_screenHeight;
 };
 
