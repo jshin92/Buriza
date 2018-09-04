@@ -64,4 +64,8 @@ void Console::ProcessKey(const bool(&discreteKeys)[MAX_INPUT_SIZE])
     {
         m_row++;
     }
+    else if (discreteKeys[GLFW_KEY_BACKSPACE])
+    {
+        m_currentExpression.pop_back();
+    }
 }
