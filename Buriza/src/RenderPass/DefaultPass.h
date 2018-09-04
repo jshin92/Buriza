@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IRenderPass.h"
-#include "../Camera.h"
+#include "../Camera/Camera.h"
 
 class DefaultPass : IRenderPass
 {

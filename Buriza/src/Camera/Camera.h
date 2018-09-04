@@ -2,7 +2,7 @@
 
 #include <GLM/glm.hpp>
 
-#include "Util/Input.h"
+#include "../Util/Input.h"
 
 enum class CameraMovement
 {
