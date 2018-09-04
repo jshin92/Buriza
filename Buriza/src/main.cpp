@@ -102,7 +102,7 @@ int main()
     CursorPass cursorPass{cursorShader, SCREEN_WIDTH, SCREEN_HEIGHT, 30.0f};
     ConsolePass consolePass{consoleShader, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, 300};
 
-    Console::PushMessage("test");
+    Console::Instance().PushMessage("test");
 
     while (!glfwWindowShouldClose(window))
     {
@@ -189,6 +189,6 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 void char_callback(GLFWwindow* window, GLuint codepoint)
 {
-    if (isRenderingConsole) Console::ProcessChar(codepoint);
+    if (isRenderingConsole) Console::Instance().ProcessChar(codepoint);
 }
 

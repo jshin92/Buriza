@@ -32,7 +32,7 @@ ConsolePass::ConsolePass(Shader& shader, GLint width, GLint height, GLint consol
 
 IRenderPassOutput ConsolePass::Run(std::optional<IRenderPassOutput> consoleInput)
 {
-    const auto& buffer = Console::GetBuffer();
+    const auto& buffer = Console::Instance().GetBuffer();
 
     auto input = std::get<ConsolePassInput>(*consoleInput);
     m_shader.Use();

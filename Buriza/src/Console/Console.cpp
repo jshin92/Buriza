@@ -3,9 +3,6 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 
-std::vector<std::string> Console::buffer{};
-std::string Console::currentExpression{};
-
 namespace
 {
     std::string SeverityToString(Severity sev)
@@ -21,23 +18,26 @@ namespace
 Console::Console()
     : m_row(0)
     , m_col(0)
+    , m_buffer()
+    , m_currentExpression()
 {
 }
 
-Console& Console::Get()
+Console& Console::Instance()
 {
     static Console instance;
     return instance;
 }
 
-const std::vector<std::string>& Console::GetBuffer()
+const std::vector<std::string>& Console::GetBuffer() const
 {
-    return buffer;
+    return m_buffer;
 }
 
-void Console::PushMessage(const std::string& msg, Severity sev)
+Console& Console::PushMessage(const std::string& msg, Severity sev)
 {
-    buffer.emplace_back(SeverityToString(sev) + msg);
+    m_buffer.emplace_back(SeverityToString(sev) + msg);
+    return *this;
 }
 
 void Console::ProcessChar(GLuint codepoint)
