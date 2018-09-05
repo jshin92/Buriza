@@ -93,7 +93,7 @@ int main()
     Entity cube("assets/cube_textured/cube_textured.obj", glm::vec3(0.0f, 1.0f, 0.0f));
     Entity plane("assets/plane.obj", glm::vec3(0.0f, 0.0f, 0.0f), 4.0f);
     Entity hero("assets/hero/hero.obj", glm::vec3(0.5f, 0.6f, 2.0f), 0.25f);
-    Entity sentinelAncient("assets/Sentinel/Ancient.obj", glm::vec3(-2.0f, 0.0f, 9.0f), 0.5f);
+    Entity sentinelAncient("assets/Sentinel/ancient/ancient.obj", glm::vec3(-2.0f, 0.0f, 9.0f), 0.5f);
     sentinelAncient.Rotate(-1.8f);
     Entity sentinelCreep("assets/Sentinel/creep/creep.obj", glm::vec3(-1.0f, 1.0f, 5.0f), 0.2f);
     sentinelCreep.Rotate(-0.2f);

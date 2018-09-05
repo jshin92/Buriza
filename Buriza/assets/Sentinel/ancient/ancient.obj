@@ -1,6 +1,6 @@
 # Blender v2.79 (sub 0) OBJ File: 'Ancient.blend'
 # www.blender.org
-mtllib Ancient.mtl
+mtllib ancient.mtl
 o Cube
 v 1.469038 2.580972 -1.167831
 v 1.271130 2.580972 -1.365740
