@@ -95,6 +95,8 @@ int main()
     Entity hero("assets/hero/hero.obj", glm::vec3(0.5f, 0.6f, 2.0f), 0.25f);
     Entity sentinelAncient("assets/Sentinel/Ancient.obj", glm::vec3(-2.0f, 0.0f, 9.0f), 0.5f);
     sentinelAncient.Rotate(-1.8f);
+    Entity sentinelCreep("assets/Sentinel/creep/creep.obj", glm::vec3(-1.0f, 1.0f, 5.0f), 0.2f);
+    sentinelCreep.Rotate(-0.2f);
     Entity scourgeAncient("assets/scourge_ancient/scourge_ancient.obj", glm::vec3(10.0f, 0.0f, -10.0f), 0.5f);
 
     TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/fira.ttf", "shaders/text.vs", "shaders/text.fs"};
@@ -126,15 +128,17 @@ int main()
         plane.Draw(simpleDepthShader);
         cube.Draw(simpleDepthShader);
         hero.Draw(simpleDepthShader);
-        scourgeAncient.Draw(simpleDepthShader);
         sentinelAncient.Draw(simpleDepthShader);
+        sentinelCreep.Draw(simpleDepthShader);
+        scourgeAncient.Draw(simpleDepthShader);
 
         defaultPass.Run(shadowOutput);
         plane.Draw(shadowShader);
         cube.Draw(shadowShader);
         hero.Draw(shadowShader);
-        scourgeAncient.Draw(shadowShader);
         sentinelAncient.Draw(shadowShader);
+        sentinelCreep.Draw(shadowShader);
+        scourgeAncient.Draw(shadowShader);
         glBindVertexArray(0);
 
         if (isRenderingConsole) consolePass.Run(ConsolePassInput{textRenderer});
