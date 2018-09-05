@@ -8,6 +8,7 @@ class Entity
 public:
     Entity(const std::string& modelPath, const glm::vec3& position, GLfloat scale=1.0f);
     virtual ~Entity() = default;
+    void Rotate(GLfloat amount);
     void Tick();
 
     void Draw(const Shader& shader);

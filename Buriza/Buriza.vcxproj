@@ -171,8 +171,8 @@
     <None Include="shaders\old\depthQuad.vs" />
     <None Include="shaders\old\lamp.fs" />
     <None Include="shaders\old\linear_depth.fs" />
-    <None Include="shaders\model_loading.fs" />
-    <None Include="shaders\model_loading.vs" />
+    <None Include="shaders\old\model_loading.fs" />
+    <None Include="shaders\old\model_loading.vs" />
     <None Include="shaders\old\shader.fs" />
     <None Include="shaders\old\shader.vs" />
     <None Include="shaders\shadow.fs" />

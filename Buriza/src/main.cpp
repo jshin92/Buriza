@@ -85,15 +85,17 @@ int main()
 
     Shader consoleShader("shaders/console");
     Shader cursorShader("shaders/texture");
-    Shader modelShader("shaders/model_loading");
+    // TODO: use this to pump shader err msg
+    //Shader modelShader("shaders/model_loading");
     Shader shadowShader("shaders/shadow");
     Shader simpleDepthShader("shaders/simpleDepthShader");
 
     Entity cube("assets/cube_textured/cube_textured.obj", glm::vec3(0.0f, 1.0f, 0.0f));
     Entity plane("assets/plane.obj", glm::vec3(0.0f, 0.0f, 0.0f), 4.0f);
     Entity hero("assets/hero/hero.obj", glm::vec3(0.5f, 0.6f, 2.0f), 0.25f);
-    Entity scourgeAncient("assets/scourge_ancient/scourge_ancient.obj", glm::vec3(-10.0f, 0.0f, 10.0f), 0.5f);
-    Entity sentinelAncient("assets/scourge_ancient/scourge_ancient.obj", glm::vec3(10.0f, 0.0f, -10.0f), 0.5f);
+    Entity sentinelAncient("assets/Sentinel/Ancient.obj", glm::vec3(-2.0f, 0.0f, 9.0f), 0.5f);
+    sentinelAncient.Rotate(-1.8f);
+    Entity scourgeAncient("assets/scourge_ancient/scourge_ancient.obj", glm::vec3(10.0f, 0.0f, -10.0f), 0.5f);
 
     TextRenderer textRenderer{SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/fira.ttf", "shaders/text.vs", "shaders/text.fs"};
 
@@ -115,7 +117,7 @@ int main()
         glfwPollEvents();
         ProcessInput(window);
 
-        hero.Tick();
+        hero.Rotate(0.003f);
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

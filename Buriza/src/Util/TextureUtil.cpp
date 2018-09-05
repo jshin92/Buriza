@@ -16,7 +16,7 @@ GLuint TextureUtil::TextureFromFile(const char* fullPath, std::optional<std::fun
     glGenTextures(1, &textureID);
 
     GLint width, height, numComponents;
-    stbi_set_flip_vertically_on_load(true);
+    stbi_set_flip_vertically_on_load(false);
     GLubyte* data = stbi_load(fullPath, &width, &height, &numComponents, 0);
     if (data)
     {

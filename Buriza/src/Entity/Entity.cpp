@@ -8,9 +8,13 @@ Entity::Entity(const std::string& modelPath, const glm::vec3& position, GLfloat 
     m_model = glm::scale(m_model, glm::vec3(scale));
 }
 
+void Entity::Rotate(GLfloat amount)
+{
+    m_model = glm::rotate(m_model, amount, glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
 void Entity::Tick()
 {
-    m_model = glm::rotate(m_model, 0.003f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void Entity::Draw(const Shader& shader)

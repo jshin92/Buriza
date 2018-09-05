@@ -127,8 +127,6 @@
   <ItemGroup>
     <None Include="assets\nanosuit\nanosuit.mtl" />
     <None Include="assets\nanosuit\nanosuit.blend" />
-    <None Include="shaders\model_loading.fs" />
-    <None Include="shaders\model_loading.vs" />
     <None Include="shaders\text.fs" />
     <None Include="shaders\text.vs" />
     <None Include="shaders\simpleDepthShader.fs" />
@@ -148,6 +146,8 @@
     <None Include="shaders\old\single_color.fs" />
     <None Include="shaders\console.fs" />
     <None Include="shaders\console.vs" />
+    <None Include="shaders\old\model_loading.fs" />
+    <None Include="shaders\old\model_loading.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">
