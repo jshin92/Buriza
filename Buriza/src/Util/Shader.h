@@ -19,6 +19,8 @@ public:
     void SetInt(const char* target, GLint val) const;
 
 private:
+    void CompileShader(const GLchar* vertexShaderCode, const GLchar* fragmentShaderCode);
+
     GLuint m_program;
 };
 

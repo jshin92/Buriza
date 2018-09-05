@@ -164,6 +164,7 @@
     <None Include="assets\nanosuit\nanosuit.blend" />
     <None Include="assets\nanosuit\nanosuit.mtl" />
     <None Include="shaders\console.fs" />
+    <None Include="shaders\console.shader" />
     <None Include="shaders\console.vs" />
     <None Include="shaders\old\basic_lighting.fs" />
     <None Include="shaders\old\basic_lighting.vs" />

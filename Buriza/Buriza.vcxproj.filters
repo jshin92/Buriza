@@ -148,6 +148,7 @@
     <None Include="shaders\console.vs" />
     <None Include="shaders\old\model_loading.fs" />
     <None Include="shaders\old\model_loading.vs" />
+    <None Include="shaders\console.shader" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">
