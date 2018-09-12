@@ -149,6 +149,7 @@
     <None Include="shaders\old\model_loading.fs" />
     <None Include="shaders\old\model_loading.vs" />
     <None Include="shaders\console.shader" />
+    <None Include="scripts\move_blender_files.py" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\container.jpg">

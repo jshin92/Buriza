@@ -163,6 +163,7 @@
   <ItemGroup>
     <None Include="assets\nanosuit\nanosuit.blend" />
     <None Include="assets\nanosuit\nanosuit.mtl" />
+    <None Include="scripts\move_blender_files.py" />
     <None Include="shaders\console.fs" />
     <None Include="shaders\console.shader" />
     <None Include="shaders\console.vs" />
