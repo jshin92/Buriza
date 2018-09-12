@@ -47,8 +47,11 @@ IRenderPassOutput ConsolePass::Run(std::optional<IRenderPassOutput> consoleInput
     m_shader.SetMat4("model", m_model);
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
-
-    input.textRenderer.Draw(currentExpression, glm::vec2(LEFT_PAD, m_screenHeight - TOP_PAD - BLOCKSIZE * currentRow), glm::vec3(1.0, 0.2, 0.2));
+    for (int i = 0; i < buffer.size(); ++i)
+    {
+        input.textRenderer.Draw(buffer[i], glm::vec2(LEFT_PAD, m_screenHeight - TOP_PAD - BLOCKSIZE * i), glm::vec3(1.0, 0.2, 0.2));
+    }
+    input.textRenderer.Draw(currentExpression, glm::vec2(LEFT_PAD, m_screenHeight - TOP_PAD - BLOCKSIZE * buffer.size()), glm::vec3(1.0, 0.2, 0.2));
 
     return {};
 }

@@ -54,7 +54,6 @@ void Console::ProcessChar(GLuint codepoint)
     // ignore backticks, as that's how you open the console
     if (codepoint == GLFW_KEY_GRAVE_ACCENT) return;
 
-    std::cout << codepoint << std::endl;
     m_currentExpression += (char)codepoint;
 }
 
@@ -62,7 +61,8 @@ void Console::ProcessKey(const bool(&discreteKeys)[MAX_INPUT_SIZE])
 {
     if (discreteKeys[GLFW_KEY_ENTER])
     {
-        m_row++;
+        m_buffer.push_back(m_currentExpression);
+        m_currentExpression = "";
     }
     else if (discreteKeys[GLFW_KEY_BACKSPACE])
     {
