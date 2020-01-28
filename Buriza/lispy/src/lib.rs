@@ -1,4 +1,4 @@
 #[no_mangle]
-fn interpret() {
-    println!("hello!")
+pub extern fn interpret() {
+    println!("Hello from rust!")
 }

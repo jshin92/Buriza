@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Buriza\3rdParty\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Buriza\3rdParty\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Buriza\3rdParty\include;$(SolutionDir)Buriza\lispy\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Buriza\3rdParty\lib;$(SolutionDir)Buriza\lispy\target\i686-pc-windows-msvc\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -82,7 +82,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32d.lib;assimp.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32d.lib;assimp.lib;freetype.lib;lispy.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

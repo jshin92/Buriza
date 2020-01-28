@@ -7,6 +7,8 @@
 #include <GLM/glm.hpp>
 #include <GLM/gtc/matrix_transform.hpp>
 
+#include <lispy.h>
+
 #include "Camera/Camera.h"
 #include "Console/Console.h"
 #include "Entity/Entity.h"
@@ -45,6 +47,8 @@ bool isRenderingConsole = false;
 
 int main()
 {
+    lispy::interpret();
+
     std::cout << "Initializing Buriza..." << std::endl;
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

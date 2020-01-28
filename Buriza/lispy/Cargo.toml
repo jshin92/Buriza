@@ -9,4 +9,4 @@ edition = "2018"
 
 [lib]
 name = "lispy"
-crate-type = ["dylib"]
+crate-type = ["staticlib"]
